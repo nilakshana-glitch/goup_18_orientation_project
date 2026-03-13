@@ -1,6 +1,7 @@
 // State Management
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 let budgets = JSON.parse(localStorage.getItem('budgets')) || {};
+let courses = JSON.parse(localStorage.getItem('courses')) || [];
 
 // DOM Elements
 const views = document.querySelectorAll('.view');
@@ -34,6 +35,7 @@ function init() {
     setupSearch();
     updateAnalytics();
     setupLiquidEffect();
+    setupGPACalculator();
 }
 
 // Liquid Effect - Mouse Tracking
@@ -89,7 +91,8 @@ function showView(viewId) {
         overview: { main: 'Overview', sub: 'Financial clarity for the modern student.' },
         transactions: { main: 'Transactions', sub: 'A detailed history of your financial flow.' },
         budget: { main: 'Budgeting', sub: 'Plan your spending and stay on track.' },
-        analytics: { main: 'Analytics', sub: 'Deep insights into your spending habits.' }
+        analytics: { main: 'Analytics', sub: 'Deep insights into your spending habits.' },
+        gpa: { main: 'GPA Calculator', sub: 'Calculate your weighted GPA based on courses and grades.' }
     };
     viewTitle.innerText = titles[viewId].main;
     viewTagline.innerText = titles[viewId].sub;
@@ -346,6 +349,170 @@ function renderTrendChart() {
             plugins: { legend: { display: false } }
         }
     });
+}
+
+// GPA Calculator Functions
+function setupGPACalculator() {
+    const addCourseBtn = document.getElementById('add-course-btn');
+    const calculateGpaBtn = document.getElementById('calculate-gpa-btn');
+    const clearCoursesBtn = document.getElementById('clear-courses-btn');
+    const courseName = document.getElementById('course-name');
+    const courseGrade = document.getElementById('course-grade');
+    const courseCredits = document.getElementById('course-credits');
+
+    addCourseBtn.addEventListener('click', addCourse);
+    calculateGpaBtn.addEventListener('click', calculateGPA);
+    clearCoursesBtn.addEventListener('click', clearAllCourses);
+
+    // Allow Enter key to add course
+    courseName.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') addCourse();
+    });
+
+    // Initial render
+    renderCourses();
+}
+
+function addCourse() {
+    const courseName = document.getElementById('course-name');
+    const courseGrade = document.getElementById('course-grade');
+    const courseCredits = document.getElementById('course-credits');
+
+    // Validation
+    if (!courseName.value.trim()) {
+        alert('Please enter a course name');
+        courseName.focus();
+        return;
+    }
+
+    if (!courseGrade.value) {
+        alert('Please select a grade');
+        courseGrade.focus();
+        return;
+    }
+
+    if (!courseCredits.value || parseFloat(courseCredits.value) <= 0) {
+        alert('Please enter valid credits');
+        courseCredits.focus();
+        return;
+    }
+
+    // Add course to array
+    const newCourse = {
+        id: Date.now(),
+        name: courseName.value.trim(),
+        grade: parseFloat(courseGrade.value),
+        credits: parseFloat(courseCredits.value)
+    };
+
+    courses.push(newCourse);
+    saveCourses();
+
+    // Clear inputs
+    courseName.value = '';
+    courseGrade.value = '';
+    courseCredits.value = '';
+    courseName.focus();
+
+    // Re-render
+    renderCourses();
+    hideGPAResult();
+}
+
+function deleteCourse(id) {
+    courses = courses.filter(course => course.id !== id);
+    saveCourses();
+    renderCourses();
+    hideGPAResult();
+}
+
+function renderCourses() {
+    const container = document.getElementById('courses-container');
+
+    if (courses.length === 0) {
+        container.innerHTML = '<p class="empty-message">No courses added yet. Add your first course above!</p>';
+        return;
+    }
+
+    container.innerHTML = courses.map(course => `
+        <div class="course-item">
+            <div class="course-info">
+                <div class="course-item-name">${course.name}</div>
+                <div class="course-item-details">
+                    <span>Grade: ${getGradeLetter(course.grade)} (${course.grade})</span>
+                    <span>Credits: ${course.credits}</span>
+                </div>
+            </div>
+            <button class="course-item-delete" onclick="deleteCourse(${course.id})">
+                <i data-lucide="trash-2"></i> Delete
+            </button>
+        </div>
+    `).join('');
+
+    // Reinitialize lucide icons
+    lucide.createIcons();
+}
+
+function getGradeLetter(gpa) {
+    if (gpa >= 3.7) return 'A';
+    if (gpa >= 3.3) return 'A-';
+    if (gpa >= 3.0) return 'B+';
+    if (gpa >= 2.7) return 'B';
+    if (gpa >= 2.3) return 'B-';
+    if (gpa >= 2.0) return 'C+';
+    if (gpa >= 1.7) return 'C';
+    if (gpa >= 1.3) return 'C-';
+    if (gpa >= 1.0) return 'D+';
+    if (gpa >= 0.7) return 'D';
+    return 'F';
+}
+
+function calculateGPA() {
+    if (courses.length === 0) {
+        alert('Please add at least one course before calculating GPA');
+        return;
+    }
+
+    let totalGradePoints = 0;
+    let totalCredits = 0;
+
+    courses.forEach(course => {
+        const gradePoints = course.grade * course.credits;
+        totalGradePoints += gradePoints;
+        totalCredits += course.credits;
+    });
+
+    const gpa = totalCredits > 0 ? (totalGradePoints / totalCredits).toFixed(2) : 0;
+
+    // Display result
+    document.getElementById('gpa-value').textContent = gpa;
+    document.getElementById('total-courses').textContent = courses.length;
+    document.getElementById('total-credits').textContent = totalCredits.toFixed(1);
+    document.getElementById('grade-points').textContent = totalGradePoints.toFixed(2);
+
+    showGPAResult();
+}
+
+function showGPAResult() {
+    document.getElementById('gpa-result').classList.remove('hidden');
+}
+
+function hideGPAResult() {
+    document.getElementById('gpa-result').classList.add('hidden');
+}
+
+function clearAllCourses() {
+    if (courses.length === 0) return;
+    if (confirm('Are you sure you want to delete all courses?')) {
+        courses = [];
+        saveCourses();
+        renderCourses();
+        hideGPAResult();
+    }
+}
+
+function saveCourses() {
+    localStorage.setItem('courses', JSON.stringify(courses));
 }
 
 init();

@@ -54,6 +54,10 @@
                     <i data-lucide="bar-chart-3"></i>
                     <span>Analytics</span>
                 </button>
+                <button class="nav-btn" data-view="gpa">
+                    <i data-lucide="calculator"></i>
+                    <span>GPA Calculator</span>
+                </button>
             </nav>
             <div class="sidebar-footer">
                 <button class="btn-add-quick glass" id="open-modal">
@@ -226,6 +230,92 @@
                                 <p id="avg-daily-spend">LKR 0.00</p>
                                 <small>last 30 days</small>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GPA Calculator View -->
+            <section id="view-gpa" class="view">
+                <div class="gpa-container">
+                    <div class="gpa-input-section glass">
+                        <h2><i data-lucide="calculator"></i> GPA Calculator</h2>
+                        <p class="section-subtitle">Add your courses to calculate your overall GPA</p>
+                        
+                        <div class="course-entry glass">
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label><i data-lucide="book"></i> Course Name</label>
+                                    <input type="text" id="course-name" placeholder="e.g., Mathematics, Physics" class="course-input">
+                                </div>
+                                <div class="input-group">
+                                    <label><i data-lucide="award"></i> Grade (A-F)</label>
+                                    <select id="course-grade" class="course-input">
+                                        <option value="">Select Grade</option>
+                                        <option value="4.0">A (4.0)</option>
+                                        <option value="3.7">A- (3.7)</option>
+                                        <option value="3.3">B+ (3.3)</option>
+                                        <option value="3.0">B (3.0)</option>
+                                        <option value="2.7">B- (2.7)</option>
+                                        <option value="2.3">C+ (2.3)</option>
+                                        <option value="2.0">C (2.0)</option>
+                                        <option value="1.7">C- (1.7)</option>
+                                        <option value="1.3">D+ (1.3)</option>
+                                        <option value="1.0">D (1.0)</option>
+                                        <option value="0.0">F (0.0)</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label><i data-lucide="hash"></i> Credits</label>
+                                    <input type="number" id="course-credits" placeholder="3" class="course-input" min="1" max="10" step="0.5">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" id="add-course-btn">
+                                <i data-lucide="plus"></i>
+                                <span>Add Course</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="gpa-results-section glass">
+                        <div class="courses-list">
+                            <h3>Added Courses</h3>
+                            <div id="courses-container" class="courses-table">
+                                <p class="empty-message">No courses added yet. Add your first course above!</p>
+                            </div>
+                        </div>
+
+                        <div class="gpa-calculation-area">
+                            <button class="btn btn-success" id="calculate-gpa-btn">
+                                <i data-lucide="zap"></i>
+                                <span>Calculate GPA</span>
+                            </button>
+
+                            <div id="gpa-result" class="gpa-result hidden">
+                                <div class="result-card">
+                                    <h3>Your GPA</h3>
+                                    <p id="gpa-value" class="gpa-display">-</p>
+                                    <div class="result-details">
+                                        <div class="detail-item">
+                                            <span>Total Courses</span>
+                                            <strong id="total-courses">0</strong>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span>Total Credits</span>
+                                            <strong id="total-credits">0</strong>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span>Grade Points</span>
+                                            <strong id="grade-points">0.00</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-secondary" id="clear-courses-btn">
+                                <i data-lucide="trash-2"></i>
+                                <span>Clear All</span>
+                            </button>
                         </div>
                     </div>
                 </div>
