@@ -72,72 +72,6 @@ body.pro-theme {
             transparent 40%);
 }
 
-/* --- Smooth Background Aurora (Liquid) --- */
-.bg-blobs {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
-    filter: url(#liquid);
-}
-
-.blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(40px);
-    opacity: 0.5;
-    animation: drift 30s infinite alternate ease-in-out;
-    transition: transform 0.2s ease-out;
-    /* For mouse tracking */
-}
-
-.blob-1 {
-    width: 600px;
-    height: 600px;
-    background: var(--primary);
-    top: -100px;
-    right: -100px;
-}
-
-.blob-2 {
-    width: 500px;
-    height: 500px;
-    background: #7c3aed;
-    bottom: -50px;
-    left: -50px;
-    animation-delay: -5s;
-}
-
-.blob-3 {
-    width: 400px;
-    height: 400px;
-    background: #0ea5e9;
-    top: 20%;
-    left: 15%;
-    animation-delay: -10s;
-}
-
-@keyframes drift {
-    0% {
-        transform: translate(0, 0) scale(1) rotate(0deg);
-    }
-
-    33% {
-        transform: translate(100px, 100px) scale(1.2) rotate(120deg);
-    }
-
-    66% {
-        transform: translate(-50px, 150px) scale(0.8) rotate(240deg);
-    }
-
-    100% {
-        transform: translate(0, 0) scale(1) rotate(360deg);
-    }
-}
-
 /* --- Global Section Entry --- */
 .animate-on-load {
     opacity: 0;
@@ -364,6 +298,147 @@ body.pro-theme {
     color: var(--expense);
 }
 
+/* --- Hub Grid & Cards --- */
+.hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+}
+
+.hub-card {
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    min-height: 320px;
+    transition: var(--transition-main);
+}
+
+.hub-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.hub-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.hub-card-header h3 {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.hub-card-content {
+    flex: 1;
+    margin-bottom: 24px;
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Hub Mini Components */
+.mini-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.mini-list li {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 10px 14px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.hub-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+}
+
+.hub-stat-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--text-main);
+    letter-spacing: -1px;
+}
+
+.hub-stat-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.mini-progress-container {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    margin: 16px 0;
+    overflow: hidden;
+}
+
+.mini-progress-bar {
+    height: 100%;
+    background: var(--primary);
+    width: 0;
+    transition: width 1s var(--smooth);
+}
+
+.timer-icon-hub {
+    width: 64px;
+    height: 64px;
+    color: var(--primary-light);
+    margin-bottom: 16px;
+    opacity: 0.8;
+}
+
+.btn-hub-action {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-main);
+}
+
+.btn-hub-action:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.btn-icon-link {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition-main);
+}
+
+.btn-icon-link:hover {
+    color: white;
+}
+
 /* --- Views --- */
 .view {
     display: none;
@@ -381,13 +456,6 @@ body.pro-theme {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* --- Main Grid --- */
-.main-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 32px;
 }
 
 .glass-section,

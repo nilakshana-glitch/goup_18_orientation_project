@@ -15,23 +15,6 @@
 </head>
 
 <body class="pro-theme">
-    <!-- Dynamic Animated Background -->
-    <div class="bg-blobs">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-        <svg style="display: none;">
-            <defs>
-                <filter id="liquid">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="blur" />
-                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 40 -15"
-                        result="liquid" />
-                    <feComposite in="SourceGraphic" in2="liquid" operator="atop" />
-                </filter>
-            </defs>
-        </svg>
-    </div>
-
     <div class="app-layout">
         <!-- Sidebar Navigation -->
         <aside class="sidebar glass">
@@ -89,7 +72,7 @@
             <header class="content-header">
                 <div class="header-left">
                     <h1 id="view-title">Overview</h1>
-                    <p class="tagline" id="view-tagline">Financial clarity for the modern student.</p>
+                    <p class="tagline" id="view-tagline">Your academic and financial command center.</p>
                 </div>
                 <div class="header-right">
                     <div class="user-profile glass">
@@ -101,58 +84,105 @@
 
             <!-- Overview View -->
             <section id="view-overview" class="view active">
-                <div class="summary-widgets">
-                    <div class="widget widget-balance glass animate-on-load" id="balance-container"
-                        style="--delay: 0.1s">
-                        <div class="widget-icon"><i data-lucide="piggy-bank"></i></div>
-                        <div class="widget-data">
-                            <h3>Available Balance</h3>
-                            <p id="current-balance">LKR 0.00</p>
+                <div class="hub-grid">
+                    <!-- Financial Summary Hub Card -->
+                    <div class="hub-card glass animate-on-load" style="--delay: 0.1s">
+                        <div class="hub-card-header">
+                            <h3><i data-lucide="wallet"></i> Financial Overview</h3>
+                            <button class="btn-icon-link" onclick="showView('transactions')"><i data-lucide="external-link"></i></button>
                         </div>
-                    </div>
-                    <div class="widget widget-income glass animate-on-load" style="--delay: 0.2s">
-                        <div class="widget-icon"><i data-lucide="trending-up"></i></div>
-                        <div class="widget-data">
-                            <h3>Total Income</h3>
-                            <p id="total-income">LKR 0.00</p>
+                        <div class="hub-card-content">
+                            <p class="hub-stat-label">Available Balance</p>
+                            <p id="current-balance-hub" class="hub-stat-value">LKR 0.00</p>
+                            <ul id="hub-recent-list" class="mini-list">
+                                <!-- Mini list populated by JS -->
+                                <li class="empty-mini">No recent transactions</li>
+                            </ul>
                         </div>
-                    </div>
-                    <div class="widget widget-expense glass animate-on-load" style="--delay: 0.3s">
-                        <div class="widget-icon"><i data-lucide="trending-down"></i></div>
-                        <div class="widget-data">
-                            <h3>Total Expenses</h3>
-                            <p id="total-expense">LKR 0.00</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="main-grid">
-                    <div class="grid-card visuals glass animate-on-load" style="--delay: 0.4s">
-                        <div class="card-header">
-                            <h3><i data-lucide="pie-chart"></i> Spending Breakdown</h3>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="expenseChart"></canvas>
-                        </div>
+                        <button class="btn-hub-action" onclick="showView('transactions')">View History</button>
                     </div>
 
-                    <div class="grid-card recent-activity glass animate-on-load" style="--delay: 0.5s">
-                        <div class="card-header">
-                            <h3><i data-lucide="history"></i> Recent Transactions</h3>
-                            <button class="btn-text" onclick="showView('transactions')">View All</button>
+                    <!-- Budgeting Hub Card -->
+                    <div class="hub-card glass animate-on-load" style="--delay: 0.2s">
+                        <div class="hub-card-header">
+                            <h3><i data-lucide="target"></i> Budget Planner</h3>
+                            <button class="btn-icon-link" onclick="showView('budget')"><i data-lucide="external-link"></i></button>
                         </div>
-                        <div class="table-container compact">
-                            <table id="recent-transactions-table">
-                                <thead>
-                                    <tr>
-                                        <th>Transaction</th>
-                                        <th>Category</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
+                        <div class="hub-card-content">
+                            <div id="hub-budget-summary">
+                                <p class="hub-stat-label">Total Categories Set</p>
+                                <p id="hub-budget-count" class="hub-stat-value">0</p>
+                                <div class="mini-progress-container">
+                                    <div id="hub-budget-progress" class="mini-progress-bar"></div>
+                                </div>
+                                <p id="hub-budget-status" class="hub-stat-desc">Set budgets to track spending.</p>
+                            </div>
                         </div>
+                        <button class="btn-hub-action" onclick="showView('budget')">Manage Budgets</button>
+                    </div>
+
+                    <!-- Analytics Hub Card -->
+                    <div class="hub-card glass animate-on-load" style="--delay: 0.3s">
+                        <div class="hub-card-header">
+                            <h3><i data-lucide="bar-chart-3"></i> Spending Insights</h3>
+                            <button class="btn-icon-link" onclick="showView('analytics')"><i data-lucide="external-link"></i></button>
+                        </div>
+                        <div class="hub-card-content">
+                            <div class="hub-insight-card">
+                                <p class="hub-stat-label">Top Expense Category</p>
+                                <p id="hub-top-category" class="hub-stat-value">-</p>
+                                <p id="hub-top-amount" class="hub-stat-desc">LKR 0.00 spent this month</p>
+                            </div>
+                        </div>
+                        <button class="btn-hub-action" onclick="showView('analytics')">View Trends</button>
+                    </div>
+
+                    <!-- Assignment Hub Card -->
+                    <div class="hub-card glass animate-on-load" style="--delay: 0.4s">
+                        <div class="hub-card-header">
+                            <h3><i data-lucide="book-check"></i> Academic Hub</h3>
+                            <button class="btn-icon-link" onclick="showView('assignment')"><i data-lucide="external-link"></i></button>
+                        </div>
+                        <div class="hub-card-content">
+                            <div id="hub-assignment-summary">
+                                <p class="hub-stat-label">Next Deadline</p>
+                                <p id="hub-next-assignment" class="hub-stat-value">No assignments</p>
+                                <p id="hub-assignment-days" class="hub-stat-desc">All caught up!</p>
+                            </div>
+                        </div>
+                        <button class="btn-hub-action" onclick="showView('assignment')">Assignments</button>
+                    </div>
+
+                    <!-- GPA Hub Card -->
+                    <div class="hub-card glass animate-on-load" style="--delay: 0.5s">
+                        <div class="hub-card-header">
+                            <h3><i data-lucide="calculator"></i> GPA Tracker</h3>
+                            <button class="btn-icon-link" onclick="showView('gpa')"><i data-lucide="external-link"></i></button>
+                        </div>
+                        <div class="hub-card-content">
+                            <div class="hub-gpa-display">
+                                <p class="hub-stat-label">Current Grade Point</p>
+                                <p id="hub-current-gpa" class="hub-stat-value">-</p>
+                                <p id="hub-course-count" class="hub-stat-desc">0 courses added</p>
+                            </div>
+                        </div>
+                        <button class="btn-hub-action" onclick="showView('gpa')">GPA Calculator</button>
+                    </div>
+
+                    <!-- Timer Hub Card -->
+                    <div class="hub-card glass animate-on-load" style="--delay: 0.6s">
+                        <div class="hub-card-header">
+                            <h3><i data-lucide="timer"></i> Productivity</h3>
+                            <button class="btn-icon-link" onclick="showView('timer')"><i data-lucide="external-link"></i></button>
+                        </div>
+                        <div class="hub-card-content center-content">
+                            <div class="hub-timer-mini">
+                                <i data-lucide="clock" class="timer-icon-hub"></i>
+                                <p>Deep work mode</p>
+                                <p class="hub-stat-desc">Ready to focus?</p>
+                            </div>
+                        </div>
+                        <button class="btn-hub-action" onclick="showView('timer')">Open Focus Timer</button>
                     </div>
                 </div>
             </section>
