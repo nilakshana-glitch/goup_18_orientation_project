@@ -285,6 +285,42 @@ tbody tr:hover {
 .stat-card { display: flex; align-items: center; gap: 24px; }
 .stat-icon { width: 56px; height: 56px; background: var(--primary); border-radius: 16px; display: flex; align-items: center; justify-content: center; }
 
+/* --- Assignment --- */
+.assignment-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 32px; }
+.assignment-form-card h3 { margin-bottom: 24px; }
+.assignment-cards { display: grid; grid-template-columns: repeat(2, minmax(240px, 1fr)); gap: 16px; }
+.assignment-item-card { border-radius: 18px; padding: 18px; background: rgba(255, 255, 255, 0.04); }
+.assignment-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.assignment-card-head h4 { font-size: 1rem; font-weight: 700; line-height: 1.35; }
+.assignment-card-meta { display: grid; gap: 8px; margin-bottom: 14px; }
+.assignment-card-meta p { color: var(--text-muted); font-size: 0.9rem; }
+.assignment-card-meta strong { color: var(--text-main); font-weight: 600; }
+.assignment-empty { color: var(--text-muted); font-weight: 600; }
+.assignment-status { font-size: 0.8rem; font-weight: 700; padding: 6px 10px; border-radius: 999px; }
+.assignment-status.done { color: #065f46; background: rgba(16, 185, 129, 0.25); }
+.assignment-status.pending { color: #7c2d12; background: rgba(245, 158, 11, 0.25); }
+.assignment-status.overdue { color: #7f1d1d; background: rgba(239, 68, 68, 0.25); }
+.assignment-remaining { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--text-main); white-space: normal; }
+.assignment-remaining.overdue { color: var(--expense); }
+.assignment-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.assignment-toggle-btn { font-weight: 700; }
+.assignment-actions .btn-text { white-space: normal; text-align: left; }
+.assignment-toggle-btn--done { color: #22c55e; }
+.assignment-toggle-btn--done:hover { color: #16a34a; }
+.assignment-toggle-btn--pending { color: #fbbf24; }
+.assignment-toggle-btn--pending:hover { color: #f59e0b; }
+.assignment-delete-btn { color: #ef4444; font-weight: 700; }
+.assignment-delete-btn:hover { color: #dc2626; }
+
+#assignment-priority {
+    color: var(--text-main);
+}
+
+#assignment-priority option {
+    background: #0f172a;
+    color: #f8fafc;
+}
+
 /* --- Forms & Inputs --- */
 .btn-primary { width: 100%; background: var(--primary); color: white; border: none; padding: 16px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: var(--transition-main); }
 .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
@@ -340,6 +376,47 @@ input:focus { outline: none; border-color: var(--primary); background: rgba(255,
 .btn-text { background: transparent; border: none; color: var(--primary-light); cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; transition: var(--transition-main); }
 .btn-text:hover { color: white; }
 
+/* Keep assignment actions readable over bright blobs */
+.assignment-actions .btn-text {
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-weight: 700;
+}
+
+.assignment-actions .assignment-toggle-btn--done {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.2);
+    border-color: rgba(34, 197, 94, 0.45);
+}
+
+.assignment-actions .assignment-toggle-btn--done:hover {
+    color: #dcfce7;
+    background: rgba(34, 197, 94, 0.35);
+}
+
+.assignment-actions .assignment-toggle-btn--pending {
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.2);
+    border-color: rgba(251, 191, 36, 0.45);
+}
+
+.assignment-actions .assignment-toggle-btn--pending:hover {
+    color: #fef3c7;
+    background: rgba(251, 191, 36, 0.35);
+}
+
+.assignment-actions .assignment-delete-btn {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.45);
+}
+
+.assignment-actions .assignment-delete-btn:hover {
+    color: #fee2e2;
+    background: rgba(239, 68, 68, 0.35);
+}
+
 /* --- Timer View Styles --- */
 .timer-container {
     display: flex;
@@ -385,6 +462,8 @@ input:focus { outline: none; border-color: var(--primary); background: rgba(255,
     .main-grid { grid-template-columns: 1fr; }
     .analytics-row { grid-template-columns: 1fr; }
     .budget-grid { grid-template-columns: 1fr; }
+    .assignment-grid { grid-template-columns: 1fr; }
+    .assignment-cards { grid-template-columns: 1fr; }
     
     .timer-display { font-size: 5rem; }
     .timer-controls { flex-direction: column; }

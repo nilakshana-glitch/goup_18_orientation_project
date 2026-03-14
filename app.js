@@ -1,6 +1,7 @@
 // State Management
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 let budgets = JSON.parse(localStorage.getItem('budgets')) || {};
+let assignments = JSON.parse(localStorage.getItem('assignments')) || [];
 
 // DOM Elements
 const views = document.querySelectorAll('.view');
@@ -15,6 +16,8 @@ const closeModalBtn = document.getElementById('close-modal');
 const transactionHistory = document.querySelector('#full-transaction-history tbody');
 const recentTransactionsTable = document.querySelector('#recent-transactions-table tbody');
 const budgetProgressList = document.getElementById('budget-progress-list');
+const assignmentForm = document.getElementById('assignment-form');
+const assignmentCardsContainer = document.getElementById('assignment-cards');
 
 // Charts
 let expenseChart;
@@ -28,6 +31,7 @@ function init() {
     renderChart();
     renderTrendChart();
     renderBudgets();
+    renderAssignments();
     setupNavigation();
     setupModal();
     setupForms();
@@ -35,6 +39,7 @@ function init() {
     updateAnalytics();
     setupLiquidEffect();
     setupTimer();
+    startAssignmentCountdown();
 }
 
 // Liquid Effect - Mouse Tracking
@@ -91,6 +96,7 @@ function showView(viewId) {
         transactions: { main: 'Transactions', sub: 'A detailed history of your financial flow.' },
         budget: { main: 'Budgeting', sub: 'Plan your spending and stay on track.' },
         analytics: { main: 'Analytics', sub: 'Deep insights into your spending habits.' },
+        assignment: { main: 'Assignment', sub: 'Organize deadlines and stay on top of coursework.' },
         timer: { main: 'Focus Timer', sub: 'Stay productive with deep work sessions.' }
     };
     viewTitle.innerText = titles[viewId].main;
@@ -98,6 +104,7 @@ function showView(viewId) {
 
     if (viewId === 'analytics') renderTrendChart();
     if (viewId === 'budget') renderBudgets();
+    if (viewId === 'assignment') renderAssignments();
 }
 
 // Modal Logic
@@ -127,6 +134,7 @@ function setupForms() {
     document.getElementById('income-form').addEventListener('submit', (e) => addTransaction(e, 'income'));
     document.getElementById('expense-form').addEventListener('submit', (e) => addTransaction(e, 'expense'));
     document.getElementById('budget-form').addEventListener('submit', setBudget);
+    if (assignmentForm) assignmentForm.addEventListener('submit', addAssignment);
 }
 
 // Search Logic
@@ -269,6 +277,124 @@ function renderBudgets() {
         budgetProgressList.appendChild(item);
     });
 }
+
+// Assignment Logic
+function addAssignment(e) {
+    e.preventDefault();
+
+    const title = document.getElementById('assignment-title').value.trim();
+    const dueDate = document.getElementById('assignment-due-date').value;
+    const priority = document.getElementById('assignment-priority').value;
+
+    assignments.push({
+        id: Math.random().toString(36).substr(2, 9),
+        title,
+        dueDate,
+        priority,
+        completed: false
+    });
+
+    localStorage.setItem('assignments', JSON.stringify(assignments));
+    assignmentForm.reset();
+    document.getElementById('assignment-priority').value = 'Medium';
+    renderAssignments();
+}
+
+function renderAssignments() {
+    if (!assignmentCardsContainer) return;
+    assignmentCardsContainer.innerHTML = '';
+
+    if (!assignments.length) {
+        assignmentCardsContainer.innerHTML = '<p class="assignment-empty">No assignments yet. Add your first assignment from the form.</p>';
+        return;
+    }
+
+    const sortedAssignments = [...assignments].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+    sortedAssignments.forEach(a => {
+        const remainingText = formatRemainingTime(a.dueDate, a.completed);
+        const isOverdue = !a.completed && getAssignmentDeadline(a.dueDate) < new Date();
+
+        const card = document.createElement('article');
+        card.className = 'assignment-item-card glass';
+        card.innerHTML = `
+            <div class="assignment-card-head">
+                <h4>${a.title}</h4>
+                <span class="badge">${a.priority}</span>
+            </div>
+            <div class="assignment-card-meta">
+                <p><strong>Due:</strong> ${new Date(a.dueDate).toLocaleDateString()}</p>
+                <p><strong>Remaining:</strong> <span class="assignment-remaining ${isOverdue ? 'overdue' : ''}" data-due-date="${a.dueDate}" data-completed="${a.completed}">${remainingText}</span></p>
+                <p><strong>Status:</strong> ${a.completed ? '<span class="assignment-status done">Done</span>' : isOverdue ? '<span class="assignment-status overdue">Overdue</span>' : '<span class="assignment-status pending">Pending</span>'}</p>
+            </div>
+            <div class="assignment-actions">
+                <button class="btn-text assignment-toggle-btn ${a.completed ? 'assignment-toggle-btn--pending' : 'assignment-toggle-btn--done'}" onclick="toggleAssignmentStatus('${a.id}')">${a.completed ? 'Mark Pending' : 'Mark Done'}</button>
+                <button class="btn-text assignment-delete-btn" onclick="deleteAssignment('${a.id}')">Delete</button>
+            </div>
+        `;
+        assignmentCardsContainer.appendChild(card);
+    });
+
+    updateAssignmentCountdowns();
+}
+
+function getAssignmentDeadline(dueDate) {
+    return new Date(`${dueDate}T23:59:59`);
+}
+
+function formatRemainingTime(dueDate, isCompleted) {
+    if (isCompleted) return 'Completed';
+
+    const now = new Date();
+    const deadline = getAssignmentDeadline(dueDate);
+    const diffMs = deadline - now;
+
+    if (diffMs < 0) {
+        const overdueMs = Math.abs(diffMs);
+        const overdueDays = Math.floor(overdueMs / (1000 * 60 * 60 * 24));
+        const overdueHours = Math.floor((overdueMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        return `Overdue by ${overdueDays}d ${overdueHours}h`;
+    }
+
+    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+function updateAssignmentCountdowns() {
+    const countdowns = document.querySelectorAll('.assignment-remaining');
+    countdowns.forEach(item => {
+        const dueDate = item.getAttribute('data-due-date');
+        const isCompleted = item.getAttribute('data-completed') === 'true';
+        item.innerText = formatRemainingTime(dueDate, isCompleted);
+
+        const overdue = !isCompleted && getAssignmentDeadline(dueDate) < new Date();
+        item.classList.toggle('overdue', overdue);
+    });
+}
+
+function startAssignmentCountdown() {
+    setInterval(updateAssignmentCountdowns, 1000);
+}
+
+window.toggleAssignmentStatus = function(id) {
+    assignments = assignments.map(a => {
+        if (a.id !== id) return a;
+        return { ...a, completed: !a.completed };
+    });
+    localStorage.setItem('assignments', JSON.stringify(assignments));
+    renderAssignments();
+};
+
+window.deleteAssignment = function(id) {
+    const assignment = assignments.find(a => a.id === id);
+    if (!confirm(`Are you sure you want to delete "${assignment?.title}"?`)) return;
+    assignments = assignments.filter(a => a.id !== id);
+    localStorage.setItem('assignments', JSON.stringify(assignments));
+    renderAssignments();
+};
 
 // Analytics & Charts
 function updateAnalytics() {
