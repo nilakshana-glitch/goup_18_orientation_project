@@ -11,10 +11,6 @@ const viewTitle = document.getElementById('view-title');
 const viewTagline = document.getElementById('view-tagline');
 const logoutBtn = document.getElementById('logout-btn');
 
-const modalOverlay = document.getElementById('add-modal-overlay');
-const openModalBtn = document.getElementById('open-modal');
-const closeModalBtn = document.getElementById('close-modal');
-
 const transactionHistory = document.querySelector('#full-transaction-history tbody');
 const recentTransactionsTable = document.querySelector('#recent-transactions-table tbody');
 const budgetProgressList = document.getElementById('budget-progress-list');
@@ -61,8 +57,8 @@ function init() {
     renderBudgets();
     renderAssignments();
     setupNavigation();
-    setupModal();
     setupForms();
+    setupTabs();
     setupSearch();
     updateAnalytics();
     setupLiquidEffect();
@@ -236,33 +232,31 @@ function showView(viewId) {
 }
 window.showView = showView;
 
-// Modal Logic
-function setupModal() {
-    openModalBtn.addEventListener('click', () => modalOverlay.classList.add('active'));
-    closeModalBtn.addEventListener('click', () => modalOverlay.classList.remove('active'));
-    modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) modalOverlay.classList.remove('active');
-    });
-
-    // Tab Logic in Modal
-    const tabBtns = modalOverlay.querySelectorAll('.tab-btn');
-    const modalForms = modalOverlay.querySelectorAll('.modal-form');
+// Tab Logic
+function setupTabs() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const modalForms = document.querySelectorAll('.modal-form');
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const tabId = btn.getAttribute('data-tab');
             tabBtns.forEach(b => b.classList.remove('active'));
             modalForms.forEach(f => f.classList.remove('active'));
             btn.classList.add('active');
-            document.getElementById(`${tabId}-form`).classList.add('active');
+            const targetForm = document.getElementById(`${tabId}-form`);
+            if (targetForm) targetForm.classList.add('active');
         });
     });
 }
 
 // Forms Logic
 function setupForms() {
-    document.getElementById('income-form').addEventListener('submit', (e) => addTransaction(e, 'income'));
-    document.getElementById('expense-form').addEventListener('submit', (e) => addTransaction(e, 'expense'));
-    document.getElementById('budget-form').addEventListener('submit', setBudget);
+    const incomeForm = document.getElementById('income-form');
+    const expenseForm = document.getElementById('expense-form');
+    const budgetForm = document.getElementById('budget-form');
+
+    if (incomeForm) incomeForm.addEventListener('submit', (e) => addTransaction(e, 'income'));
+    if (expenseForm) expenseForm.addEventListener('submit', (e) => addTransaction(e, 'expense'));
+    if (budgetForm) budgetForm.addEventListener('submit', setBudget);
     if (assignmentForm) assignmentForm.addEventListener('submit', addAssignment);
 }
 
@@ -296,7 +290,8 @@ function updateSummary() {
 }
 
 function animateValue(obj, value) {
-    const start = parseFloat(obj.innerText.replace(/LKR|,/g, '')) || 0;
+    const startText = obj.innerText.replace(/LKR|,/g, '');
+    const start = parseFloat(startText) || 0;
     const duration = 1500;
     let startTimestamp = null;
     const step = (timestamp) => {
@@ -311,6 +306,7 @@ function animateValue(obj, value) {
 }
 
 function renderTransactions(filter = '') {
+    if (!transactionHistory) return;
     transactionHistory.innerHTML = '';
     const filtered = transactions
         .filter(t => t.desc.toLowerCase().includes(filter) || (t.category && t.category.toLowerCase().includes(filter)))
@@ -353,7 +349,6 @@ function addTransaction(e, type) {
 
     transactions.push({ id: Math.random().toString(36).substr(2, 9), type, amount, desc, date, category });
     e.target.reset();
-    modalOverlay.classList.remove('active');
 
     updateSummary();
     renderTransactions();
@@ -385,6 +380,7 @@ function setBudget(e) {
 }
 
 function renderBudgets() {
+    if (!budgetProgressList) return;
     budgetProgressList.innerHTML = '';
     const categories = ['Food', 'Transport', 'Study', 'Entertainment', 'Others'];
 

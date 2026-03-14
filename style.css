@@ -552,6 +552,45 @@ body.pro-theme {
     margin-bottom: 32px;
 }
 
+/* --- Inline Quick Add --- */
+.inline-add-section {
+    padding: 32px;
+    border-radius: var(--radius-lg);
+}
+
+.mini-tabs {
+    background: rgba(0, 0, 0, 0.15);
+    padding: 4px;
+    border-radius: 10px;
+    display: flex;
+    gap: 4px;
+}
+
+.mini-tabs .tab-btn {
+    padding: 8px 20px;
+    font-size: 0.85rem;
+}
+
+.inline-form-layout {
+    display: none;
+    animation: slideIn 0.4s var(--smooth);
+}
+
+.inline-form-layout.active {
+    display: block;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.input-grid .input-group {
+    margin-bottom: 0;
+}
+
 /* --- Tables --- */
 .table-container {
     width: 100%;
