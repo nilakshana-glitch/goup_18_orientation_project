@@ -58,6 +58,10 @@
                     <i data-lucide="bar-chart-3"></i>
                     <span>Analytics</span>
                 </button>
+                <button class="nav-btn" data-view="assignment">
+                    <i data-lucide="book-check"></i>
+                    <span>Assignment</span>
+                </button>
                 <button class="nav-btn" data-view="timer">
                     <i data-lucide="timer"></i>
                     <span>Timer</span>
@@ -65,6 +69,10 @@
                 <button class="nav-btn" data-view="gpa">
                     <i data-lucide="calculator"></i>
                     <span>GPA Calculator</span>
+                </button>
+                <button class="nav-btn" id="logout-btn" type="button">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout</span>
                 </button>
             </nav>
             <div class="sidebar-footer">
@@ -239,6 +247,43 @@
                                 <p id="avg-daily-spend">LKR 0.00</p>
                                 <small>last 30 days</small>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assignment View -->
+            <section id="view-assignment" class="view">
+                <div class="assignment-grid">
+                    <div class="glass-section glass assignment-form-card">
+                        <h3><i data-lucide="book-plus"></i> Add Assignment</h3>
+                        <form id="assignment-form">
+                            <div class="input-group">
+                                <label>Assignment Title</label>
+                                <input type="text" id="assignment-title" placeholder="e.g. Database Project Report" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Due Date</label>
+                                <input type="date" id="assignment-due-date" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Priority</label>
+                                <select id="assignment-priority" required>
+                                    <option value="High">High</option>
+                                    <option value="Medium" selected>Medium</option>
+                                    <option value="Low">Low</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Assignment</button>
+                        </form>
+                    </div>
+
+                    <div class="glass-section glass assignment-list-card">
+                        <div class="section-header">
+                            <h3><i data-lucide="clipboard-list"></i> Assignment List</h3>
+                        </div>
+                        <div id="assignment-cards" class="assignment-cards">
+                            <!-- Assignment cards are rendered here -->
                         </div>
                     </div>
                 </div>
