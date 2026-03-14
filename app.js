@@ -1,6 +1,7 @@
 // State Management
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 let budgets = JSON.parse(localStorage.getItem('budgets')) || {};
+let courses = JSON.parse(localStorage.getItem('courses')) || [];
 
 // DOM Elements
 const views = document.querySelectorAll('.view');
@@ -35,6 +36,7 @@ function init() {
     updateAnalytics();
     setupLiquidEffect();
     setupTimer();
+    setupGPACalculator();
 }
 
 // Liquid Effect - Mouse Tracking
@@ -91,7 +93,8 @@ function showView(viewId) {
         transactions: { main: 'Transactions', sub: 'A detailed history of your financial flow.' },
         budget: { main: 'Budgeting', sub: 'Plan your spending and stay on track.' },
         analytics: { main: 'Analytics', sub: 'Deep insights into your spending habits.' },
-        timer: { main: 'Focus Timer', sub: 'Stay productive with deep work sessions.' }
+        timer: { main: 'Focus Timer', sub: 'Stay productive with deep work sessions.' },
+        gpa: { main: 'GPA Calculator', sub: 'Calculate your weighted GPA based on courses and grades.' }
     };
     viewTitle.innerText = titles[viewId].main;
     viewTagline.innerText = titles[viewId].sub;
@@ -157,12 +160,12 @@ function animateValue(obj, value) {
     const step = (timestamp) => {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        
+
         // Smoother easing: easeOutQuart
         const easeProgress = 1 - Math.pow(1 - progress, 4);
         const current = easeProgress * (value - start) + start;
-        
-        obj.innerText = `LKR ${current.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+        obj.innerText = `LKR ${current.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
         if (progress < 1) window.requestAnimationFrame(step);
     };
     window.requestAnimationFrame(step);
@@ -211,7 +214,7 @@ function addTransaction(e, type) {
     transactions.push({ id: Math.random().toString(36).substr(2, 9), type, amount, desc, date, category });
     e.target.reset();
     modalOverlay.classList.remove('active');
-    
+
     updateSummary();
     renderTransactions();
     renderRecentTransactions();
@@ -220,7 +223,7 @@ function addTransaction(e, type) {
     if (document.getElementById('view-budget').classList.contains('active')) renderBudgets();
 }
 
-window.deleteTransaction = function(id) {
+window.deleteTransaction = function (id) {
     transactions = transactions.filter(t => t.id !== id);
     updateSummary();
     renderTransactions();
@@ -243,14 +246,14 @@ function setBudget(e) {
 function renderBudgets() {
     budgetProgressList.innerHTML = '';
     const categories = ['Food', 'Transport', 'Study', 'Entertainment', 'Others'];
-    
+
     categories.forEach(cat => {
         if (!budgets[cat]) return;
-        
+
         const spent = transactions
             .filter(t => t.type === 'expense' && t.category === cat)
             .reduce((sum, t) => sum + t.amount, 0);
-        
+
         const limit = budgets[cat];
         const percent = Math.min((spent / limit) * 100, 100);
         const color = percent > 90 ? 'var(--expense)' : percent > 70 ? 'var(--warning)' : 'var(--income)';
@@ -273,9 +276,9 @@ function renderBudgets() {
 // Analytics & Charts
 function updateAnalytics() {
     // Avg Daily Spend
-    const last30Days = transactions.filter(t => t.type === 'expense' && (new Date() - new Date(t.date)) / (1000*60*60*24) <= 30);
+    const last30Days = transactions.filter(t => t.type === 'expense' && (new Date() - new Date(t.date)) / (1000 * 60 * 60 * 24) <= 30);
     const total30 = last30Days.reduce((sum, t) => sum + t.amount, 0);
-    document.getElementById('avg-daily-spend').innerText = `LKR ${(total30 / 30).toLocaleString(undefined, {maximumFractionDigits: 0})}`;
+    document.getElementById('avg-daily-spend').innerText = `LKR ${(total30 / 30).toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
 
     // Top Category
     const catTotals = {};
@@ -290,7 +293,7 @@ function renderChart() {
     const ctx = document.getElementById('expenseChart').getContext('2d');
     const catTotals = {};
     transactions.filter(t => t.type === 'expense').forEach(t => catTotals[t.category] = (catTotals[t.category] || 0) + t.amount);
-    
+
     if (expenseChart) expenseChart.destroy();
     expenseChart = new Chart(ctx, {
         type: 'doughnut',
@@ -303,8 +306,8 @@ function renderChart() {
                 hoverOffset: 20
             }]
         },
-        options: { 
-            cutout: '75%', 
+        options: {
+            cutout: '75%',
             plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { weight: '600' } } } }
         }
     });
@@ -328,7 +331,7 @@ function renderTrendChart() {
     trendChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: last7Days.map(d => new Date(d).toLocaleDateString(undefined, {weekday: 'short'})),
+            labels: last7Days.map(d => new Date(d).toLocaleDateString(undefined, { weekday: 'short' })),
             datasets: [{
                 label: 'Spending',
                 data: data,
@@ -364,7 +367,7 @@ function setupTimer() {
     startBtn.addEventListener('click', startTimer);
     pauseBtn.addEventListener('click', pauseTimer);
     resetBtn.addEventListener('click', resetTimer);
-    
+
     minutesInput.addEventListener('change', () => {
         if (!isTimerRunning) {
             timerSeconds = minutesInput.value * 60;
@@ -377,10 +380,10 @@ function setupTimer() {
 
 function startTimer() {
     if (isTimerRunning) return;
-    
+
     isTimerRunning = true;
     document.getElementById('start-timer').style.display = 'none';
-    document.getElementById('pause-timer').style.display = 'flex'; 
+    document.getElementById('pause-timer').style.display = 'flex';
     document.getElementById('set-minutes').disabled = true;
 
     timerInterval = setInterval(() => {
@@ -390,7 +393,7 @@ function startTimer() {
         } else {
             clearInterval(timerInterval);
             isTimerRunning = false;
-            document.getElementById('start-timer').style.display = 'flex'; 
+            document.getElementById('start-timer').style.display = 'flex';
             document.getElementById('pause-timer').style.display = 'none';
             document.getElementById('set-minutes').disabled = false;
             alert("Time's up!");
@@ -410,11 +413,11 @@ function resetTimer() {
     isTimerRunning = false;
     const minutesInput = document.getElementById('set-minutes');
     timerSeconds = minutesInput.value * 60;
-    
+
     document.getElementById('start-timer').style.display = 'flex';
     document.getElementById('pause-timer').style.display = 'none';
     document.getElementById('set-minutes').disabled = false;
-    
+
     updateTimerDisplay();
 }
 
@@ -425,6 +428,170 @@ function updateTimerDisplay() {
 
     document.getElementById('timer-minutes').innerText = String(minutes + (hours * 60)).padStart(2, '0');
     document.getElementById('timer-seconds').innerText = String(seconds).padStart(2, '0');
+}
+
+// GPA Calculator Functions
+function setupGPACalculator() {
+    const addCourseBtn = document.getElementById('add-course-btn');
+    const calculateGpaBtn = document.getElementById('calculate-gpa-btn');
+    const clearCoursesBtn = document.getElementById('clear-courses-btn');
+    const courseName = document.getElementById('course-name');
+    const courseGrade = document.getElementById('course-grade');
+    const courseCredits = document.getElementById('course-credits');
+
+    addCourseBtn.addEventListener('click', addCourse);
+    calculateGpaBtn.addEventListener('click', calculateGPA);
+    clearCoursesBtn.addEventListener('click', clearAllCourses);
+
+    // Allow Enter key to add course
+    courseName.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') addCourse();
+    });
+
+    // Initial render
+    renderCourses();
+}
+
+function addCourse() {
+    const courseName = document.getElementById('course-name');
+    const courseGrade = document.getElementById('course-grade');
+    const courseCredits = document.getElementById('course-credits');
+
+    // Validation
+    if (!courseName.value.trim()) {
+        alert('Please enter a course name');
+        courseName.focus();
+        return;
+    }
+
+    if (!courseGrade.value) {
+        alert('Please select a grade');
+        courseGrade.focus();
+        return;
+    }
+
+    if (!courseCredits.value || parseFloat(courseCredits.value) <= 0) {
+        alert('Please enter valid credits');
+        courseCredits.focus();
+        return;
+    }
+
+    // Add course to array
+    const newCourse = {
+        id: Date.now(),
+        name: courseName.value.trim(),
+        grade: parseFloat(courseGrade.value),
+        credits: parseFloat(courseCredits.value)
+    };
+
+    courses.push(newCourse);
+    saveCourses();
+
+    // Clear inputs
+    courseName.value = '';
+    courseGrade.value = '';
+    courseCredits.value = '';
+    courseName.focus();
+
+    // Re-render
+    renderCourses();
+    hideGPAResult();
+}
+
+function deleteCourse(id) {
+    courses = courses.filter(course => course.id !== id);
+    saveCourses();
+    renderCourses();
+    hideGPAResult();
+}
+
+function renderCourses() {
+    const container = document.getElementById('courses-container');
+
+    if (courses.length === 0) {
+        container.innerHTML = '<p class="empty-message">No courses added yet. Add your first course above!</p>';
+        return;
+    }
+
+    container.innerHTML = courses.map(course => `
+        <div class="course-item">
+            <div class="course-info">
+                <div class="course-item-name">${course.name}</div>
+                <div class="course-item-details">
+                    <span>Grade: ${getGradeLetter(course.grade)} (${course.grade})</span>
+                    <span>Credits: ${course.credits}</span>
+                </div>
+            </div>
+            <button class="course-item-delete" onclick="deleteCourse(${course.id})">
+                <i data-lucide="trash-2"></i> Delete
+            </button>
+        </div>
+    `).join('');
+
+    // Reinitialize lucide icons
+    lucide.createIcons();
+}
+
+function getGradeLetter(gpa) {
+    if (gpa >= 3.7) return 'A';
+    if (gpa >= 3.3) return 'A-';
+    if (gpa >= 3.0) return 'B+';
+    if (gpa >= 2.7) return 'B';
+    if (gpa >= 2.3) return 'B-';
+    if (gpa >= 2.0) return 'C+';
+    if (gpa >= 1.7) return 'C';
+    if (gpa >= 1.3) return 'C-';
+    if (gpa >= 1.0) return 'D+';
+    if (gpa >= 0.7) return 'D';
+    return 'F';
+}
+
+function calculateGPA() {
+    if (courses.length === 0) {
+        alert('Please add at least one course before calculating GPA');
+        return;
+    }
+
+    let totalGradePoints = 0;
+    let totalCredits = 0;
+
+    courses.forEach(course => {
+        const gradePoints = course.grade * course.credits;
+        totalGradePoints += gradePoints;
+        totalCredits += course.credits;
+    });
+
+    const gpa = totalCredits > 0 ? (totalGradePoints / totalCredits).toFixed(2) : 0;
+
+    // Display result
+    document.getElementById('gpa-value').textContent = gpa;
+    document.getElementById('total-courses').textContent = courses.length;
+    document.getElementById('total-credits').textContent = totalCredits.toFixed(1);
+    document.getElementById('grade-points').textContent = totalGradePoints.toFixed(2);
+
+    showGPAResult();
+}
+
+function showGPAResult() {
+    document.getElementById('gpa-result').classList.remove('hidden');
+}
+
+function hideGPAResult() {
+    document.getElementById('gpa-result').classList.add('hidden');
+}
+
+function clearAllCourses() {
+    if (courses.length === 0) return;
+    if (confirm('Are you sure you want to delete all courses?')) {
+        courses = [];
+        saveCourses();
+        renderCourses();
+        hideGPAResult();
+    }
+}
+
+function saveCourses() {
+    localStorage.setItem('courses', JSON.stringify(courses));
 }
 
 init();
