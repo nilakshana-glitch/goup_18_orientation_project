@@ -93,6 +93,86 @@ body.pro-theme {
     min-height: 100vh;
 }
 
+/* --- Overview Hub Components --- */
+.welcome-section {
+    margin-bottom: 60px;
+    text-align: center;
+    padding-top: 40px;
+}
+
+.welcome-section h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    letter-spacing: -3px;
+    line-height: 1.1;
+    background: linear-gradient(to right, #fff, var(--text-muted));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.welcome-section .subtitle {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-bottom: 80px;
+}
+
+.quick-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 24px;
+    padding: 48px 32px;
+    border-radius: var(--radius-lg);
+    transition: var(--transition-main);
+    min-height: 320px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.quick-card.clickable {
+    cursor: pointer;
+}
+
+.quick-card.clickable:hover {
+    transform: translateY(-12px) scale(1.03);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+.quick-card-icon {
+    font-size: 4.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 32px;
+    margin-bottom: 8px;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+.quick-card-info h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.quick-card-info p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
 /* --- Sidebar --- */
 .sidebar {
     width: var(--sidebar-width);

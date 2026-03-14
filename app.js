@@ -219,18 +219,19 @@ function showView(viewId) {
     // Update Header
     const titles = {
         overview: { main: 'Overview Hub', sub: 'Your personal academic and financial productivity dashboard.' },
-        transactions: { main: 'Transactions', sub: 'A detailed history of your financial flow.' },
-        budget: { main: 'Budgeting', sub: 'Plan your spending and stay on track.' },
-        analytics: { main: 'Analytics', sub: 'Deep insights into your spending habits.' },
+        budget: { main: 'Budgeting & Finance', sub: 'Comprehensive tools to track spending, set budgets, and analyze trends.' },
         assignment: { main: 'Assignment', sub: 'Organize deadlines and stay on top of coursework.' },
         timer: { main: 'Focus Timer', sub: 'Stay productive with deep work sessions.' },
         gpa: { main: 'GPA Calculator', sub: 'Calculate your weighted GPA based on courses and grades.' }
     };
-    if (viewTitle) viewTitle.innerText = titles[viewId].main;
-    if (viewTagline) viewTagline.innerText = titles[viewId].sub;
+    if (viewTitle && titles[viewId]) viewTitle.innerText = titles[viewId].main;
+    if (viewTagline && titles[viewId]) viewTagline.innerText = titles[viewId].sub;
 
-    if (viewId === 'analytics') renderTrendChart();
-    if (viewId === 'budget') renderBudgets();
+    if (viewId === 'budget') {
+        renderTrendChart();
+        renderBudgets();
+        renderTransactions();
+    }
     if (viewId === 'assignment') renderAssignments();
 }
 window.showView = showView;
