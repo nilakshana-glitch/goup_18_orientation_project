@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Stryde Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --bg-gradient: radial-gradient(circle at 20% 20%, #1d4ed8 0%, transparent 35%), radial-gradient(circle at 80% 80%, #6366f1 0%, transparent 30%), linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --card-bg: rgba(15, 23, 42, 0.72);
+            --card-border: rgba(255, 255, 255, 0.12);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --danger: #f87171;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            padding: 24px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 440px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 36px;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        input {
+            width: 100%;
+            border: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border-radius: 12px;
+            padding: 13px 14px;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn {
+            margin-top: 8px;
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-weight: 700;
+            color: #fff;
+            background: var(--primary);
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .hint {
+            margin-top: 14px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .error {
+            margin-top: 12px;
+            color: var(--danger);
+            font-size: 0.92rem;
+            min-height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <main class="login-card">
+        <h1>Welcome Back</h1>
+        <p>Log in to access your Stryde Pro dashboard.</p>
+
+        <form id="login-form">
+            <div class="field">
+                <label for="email">Email</label>
+                <input id="email" type="email" required placeholder="student@strydepro.com">
+            </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <input id="password" type="password" required placeholder="Enter password">
+            </div>
+            <button class="btn" type="submit">Login</button>
+            <div id="login-error" class="error"></div>
+        </form>
+
+        <p class="hint">Demo login: student@strydepro.com / 123456</p>
+    </main>
+
+    <script>
+        const DEMO_EMAIL = 'student@strydepro.com';
+        const DEMO_PASSWORD = '123456';
+
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            window.location.href = 'index.html';
+        }
+
+        const form = document.getElementById('login-form');
+        const errorEl = document.getElementById('login-error');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim().toLowerCase();
+            const password = document.getElementById('password').value;
+
+            if (email !== DEMO_EMAIL || password !== DEMO_PASSWORD) {
+                errorEl.innerText = 'Invalid email or password.';
+                return;
+            }
+
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('authUser', JSON.stringify({
+                name: 'Student Pro',
+                email: DEMO_EMAIL
+            }));
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

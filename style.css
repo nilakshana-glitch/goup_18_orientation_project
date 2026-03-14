@@ -171,6 +171,17 @@ body.pro-theme {
     box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
 }
 
+#logout-btn {
+    color: #f87171;
+    border: 1px solid rgba(248, 113, 113, 0.25);
+}
+
+#logout-btn:hover {
+    color: #fecaca;
+    background: rgba(239, 68, 68, 0.18);
+    border-color: rgba(248, 113, 113, 0.45);
+}
+
 .sidebar-footer { padding: 0 24px; }
 .btn-add-quick { width: 100%; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px; border: 1px solid var(--glass-border); color: white; font-weight: 700; cursor: pointer; border-radius: 14px; transition: var(--transition-main); background: transparent; }
 .btn-add-quick:hover { background: var(--primary); border-color: var(--primary); }

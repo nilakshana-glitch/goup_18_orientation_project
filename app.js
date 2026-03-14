@@ -8,6 +8,7 @@ const views = document.querySelectorAll('.view');
 const navBtns = document.querySelectorAll('.nav-btn');
 const viewTitle = document.getElementById('view-title');
 const viewTagline = document.getElementById('view-tagline');
+const logoutBtn = document.getElementById('logout-btn');
 
 const modalOverlay = document.getElementById('add-modal-overlay');
 const openModalBtn = document.getElementById('open-modal');
@@ -23,8 +24,34 @@ const assignmentCardsContainer = document.getElementById('assignment-cards');
 let expenseChart;
 let trendChart;
 
+function ensureAuthenticated() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    if (!isLoggedIn) {
+        window.location.href = 'login.html';
+        return false;
+    }
+
+    const savedUser = JSON.parse(localStorage.getItem('authUser') || '{}');
+    const profileName = document.querySelector('.user-profile span');
+    if (profileName && savedUser.name) {
+        profileName.innerText = savedUser.name;
+    }
+
+    return true;
+}
+
+function setupAuth() {
+    if (!logoutBtn) return;
+    logoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('authUser');
+        window.location.href = 'login.html';
+    });
+}
+
 // Initialize App
 function init() {
+    if (!ensureAuthenticated()) return;
     updateSummary();
     renderTransactions();
     renderRecentTransactions();
@@ -40,6 +67,7 @@ function init() {
     setupLiquidEffect();
     setupTimer();
     startAssignmentCountdown();
+    setupAuth();
 }
 
 // Liquid Effect - Mouse Tracking
@@ -74,6 +102,7 @@ function setupNavigation() {
     navBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const viewId = btn.getAttribute('data-view');
+            if (!viewId) return;
             showView(viewId);
         });
     });
