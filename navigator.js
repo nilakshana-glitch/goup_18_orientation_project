@@ -164,9 +164,7 @@ function setupEventListeners() {
 
     // Floor Map Button
     openFloorMapBtn.addEventListener('click', () => {
-        // Placeholder for PDF opening
-        alert("Opening the Floor Map PDF... (Placeholder)");
-        // window.open('path/to/floor-map.pdf', '_blank');
+        window.open('UCSC Floor Map.pdf', '_blank');
     });
 }
 
