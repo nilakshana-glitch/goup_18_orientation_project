@@ -72,6 +72,20 @@ function init() {
     startAssignmentCountdown();
     setupAuth();
     updateOverviewHub();
+
+    // Initialize View based on URL Hash
+    const hash = window.location.hash.replace('#', '');
+    if (hash && ['overview', 'budget', 'assignment', 'timer', 'gpa'].includes(hash)) {
+        showView(hash);
+    }
+
+    // Handle hash changes while on the page
+    window.addEventListener('hashchange', () => {
+        const newHash = window.location.hash.replace('#', '');
+        if (newHash && ['overview', 'budget', 'assignment', 'timer', 'gpa'].includes(newHash)) {
+            showView(newHash);
+        }
+    });
 }
 
 // Overview Hub Logic
