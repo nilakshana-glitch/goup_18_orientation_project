@@ -18,6 +18,44 @@
     display: flex;
     justify-content: center;
     margin-bottom: 40px;
+    width: 100%;
+}
+
+.search-bar-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 28px;
+    border-radius: 20px;
+    transition: var(--transition-main);
+}
+
+.search-bar-container:focus-within {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--primary-light);
+    box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.3);
+}
+
+.search-bar-container i {
+    color: var(--primary-light);
+    width: 22px;
+    height: 22px;
+}
+
+.search-bar-container input {
+    background: transparent;
+    border: none;
+    padding: 0;
+    width: 100%;
+    color: white;
+    font-size: 1.1rem;
+    font-family: inherit;
+    outline: none;
+}
+
+.search-bar-container input::placeholder {
+    color: var(--text-muted);
 }
 
 .category-tabs {
