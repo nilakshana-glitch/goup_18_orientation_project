@@ -1,0 +1,268 @@
+/* Food Finder Specific Styles */
+
+.food-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.food-header h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    background: linear-gradient(to bottom, #ffffff 40%, var(--primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.food-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.food-cat-tab {
+    padding: 10px 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-main);
+}
+
+.food-cat-tab:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+}
+
+.food-cat-tab.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary-light);
+}
+
+/* Food Spots Grid */
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 32px;
+}
+
+.food-spot-card {
+    border-radius: 24px;
+    overflow: hidden;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: var(--transition-main);
+    display: flex;
+    flex-direction: column;
+}
+
+.food-spot-card:hover {
+    transform: translateY(-12px);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--primary-light);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.spot-img {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+}
+
+.spot-info {
+    padding: 24px;
+}
+
+.spot-info h3 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    color: white;
+}
+
+.spot-info .category-tag {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary-light);
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.spot-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.spot-meta span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Spot Details Page (Inside Modal) */
+.spot-details-page {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 48px;
+}
+
+.spot-hero-img {
+    width: 100%;
+    height: 240px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6rem;
+    margin-bottom: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.spot-info-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.spot-info-sidebar .detail-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.spot-info-sidebar .detail-item label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.spot-info-sidebar .detail-item span {
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.spot-details-right h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: white;
+}
+
+.info-category {
+    color: var(--primary-light);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.spot-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+}
+
+.menu-container h3 {
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 12px;
+}
+
+.menu-sections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 32px;
+}
+
+.menu-section h4 {
+    color: var(--primary-light);
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.menu-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
+}
+
+.item-name {
+    font-weight: 500;
+}
+
+.item-price {
+    font-weight: 700;
+    color: var(--income);
+}
+
+.pro-tip {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    padding: 24px;
+    border-radius: 24px;
+}
+
+.pro-tip h4 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-light);
+    margin-bottom: 12px;
+}
+
+.pro-tip p {
+    font-style: italic;
+    color: var(--text-main);
+}
+
+@media (max-width: 1000px) {
+    .spot-details-page {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    
+    .spot-details-left {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}

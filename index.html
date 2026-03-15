@@ -53,6 +53,10 @@
                     <i data-lucide="users"></i>
                     <span>Budget Splitter</span>
                 </button>
+                <button class="nav-btn" onclick="window.location.href='food.html'">
+                    <i data-lucide="utensils"></i>
+                    <span>Food Finder</span>
+                </button>
                 <button class="nav-btn" id="logout-btn" type="button">
                     <i data-lucide="log-out"></i>
                     <span>Logout</span>
@@ -83,11 +87,11 @@
                 </div>
 
                 <div class="quick-actions-grid animate-on-load" style="--delay: 0.2s">
-                    <div class="quick-card glass">
+                    <div class="quick-card glass clickable" onclick="window.location.href='food.html'">
                         <div class="quick-card-icon">🍜</div>
                         <div class="quick-card-info">
                             <h3>Hungry?</h3>
-                            <p>Open canteen menus (Coming Soon)</p>
+                            <p>Open canteen menus</p>
                         </div>
                     </div>
                     <div class="quick-card glass clickable" onclick="showView('timer')">
