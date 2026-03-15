@@ -837,12 +837,12 @@ function addCourse() {
     hideGPAResult();
 }
 
-function deleteCourse(id) {
+window.deleteCourse = function(id) {
     courses = courses.filter(course => course.id !== id);
     saveCourses();
     renderCourses();
     hideGPAResult();
-}
+};
 
 function renderCourses() {
     const container = document.getElementById('courses-container');
@@ -862,7 +862,7 @@ function renderCourses() {
                 </div>
             </div>
             <div class="grade-badge">${getGradeLetter(course.grade)}</div>
-            <button class="btn-icon" style="color: #f87171;" onclick="deleteCourse('${course.id}')">
+            <button class="btn-icon" style="color: #f87171;" onclick="deleteCourse(${course.id})">
                 <i data-lucide="trash-2"></i>
             </button>
         </div>
