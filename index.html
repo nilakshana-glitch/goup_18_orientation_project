@@ -25,29 +25,37 @@
                 </div>
             </div>
             <nav class="sidebar-nav">
-                <button class="nav-btn active" data-view="overview">
+                <button class="nav-btn active" data-view="overview" onclick="window.location.hash='overview'">
                     <i data-lucide="layout-grid"></i>
                     <span>Home</span>
                 </button>
-                <button class="nav-btn" data-view="budget">
+                <button class="nav-btn" data-view="budget" onclick="window.location.hash='budget'">
                     <i data-lucide="target"></i>
                     <span>Budgeting</span>
                 </button>
-                <button class="nav-btn" data-view="assignment">
+                <button class="nav-btn" data-view="assignment" onclick="window.location.hash='assignment'">
                     <i data-lucide="book-check"></i>
-                    <span>Assignment</span>
+                    <span>Assignments</span>
                 </button>
-                <button class="nav-btn" data-view="timer">
+                <button class="nav-btn" data-view="timer" onclick="window.location.hash='timer'">
                     <i data-lucide="timer"></i>
                     <span>Timer</span>
                 </button>
-                <button class="nav-btn" data-view="gpa">
+                <button class="nav-btn" data-view="gpa" onclick="window.location.hash='gpa'">
                     <i data-lucide="calculator"></i>
                     <span>GPA Calculator</span>
                 </button>
-                <button class="nav-btn" id="logout-btn" type="button">
-                    <i data-lucide="log-out"></i>
-                    <span>Logout</span>
+                <button class="nav-btn" onclick="window.location.href='navigator.html'">
+                    <i data-lucide="map-pin"></i>
+                    <span>Navigator</span>
+                </button>
+                <button class="nav-btn" onclick="window.location.href='splitter.html'">
+                    <i data-lucide="users"></i>
+                    <span>Budget Splitter</span>
+                </button>
+                <button class="nav-btn" onclick="window.location.href='food.html'">
+                    <i data-lucide="utensils"></i>
+                    <span>Food Finder</span>
                 </button>
             </nav>
         </aside>
@@ -64,6 +72,10 @@
                         <div class="avatar"><i data-lucide="user"></i></div>
                         <span>Student Pro</span>
                     </div>
+                    <button class="logout-pill glass" id="logout-btn" title="Logout">
+                        <i data-lucide="log-out"></i>
+                        <span>Logout</span>
+                    </button>
                 </div>
             </header>
 

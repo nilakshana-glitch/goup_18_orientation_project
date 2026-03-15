@@ -1,0 +1,34 @@
+/* Food Finder Specific Styles */
+.food-header { margin-bottom: 40px; text-align: center; }
+.food-header h1 {
+    font-size: 3.5rem; font-weight: 800; margin-bottom: 10px;
+    background: linear-gradient(to bottom, #ffffff 40%, var(--primary-light) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.food-controls { display: flex; justify-content: center; margin-bottom: 40px; }
+.category-tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+.food-cat-tab { padding: 10px 24px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: var(--text-muted); font-weight: 600; cursor: pointer; transition: var(--transition-main); }
+.food-cat-tab.active { background: var(--primary); color: white; border-color: var(--primary-light); }
+
+.food-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 32px; }
+.food-spot-card { border-radius: 24px; overflow: hidden; cursor: pointer; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); transition: var(--transition-main); }
+.food-spot-card:hover { transform: translateY(-12px); border-color: var(--primary-light); }
+.spot-img { width: 100%; height: 180px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1)); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+.spot-info { padding: 24px; }
+.spot-info h3 { font-size: 1.4rem; color: white; }
+.spot-meta { color: var(--text-muted); font-size: 0.95rem; margin-top: 8px; }
+
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); }
+.modal-content { margin: 5% auto; padding: 40px; width: 90%; max-width: 1000px; border-radius: 32px; position: relative; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); }
+.close-modal { position: absolute; right: 25px; top: 20px; color: var(--text-muted); font-size: 35px; cursor: pointer; }
+
+.spot-details-page { display: grid; grid-template-columns: 320px 1fr; gap: 48px; }
+.spot-hero-img { width: 100%; height: 240px; background: rgba(255,255,255,0.05); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 6rem; border: 1px solid rgba(255,255,255,0.1); }
+.spot-info-sidebar .detail-item { background: rgba(255,255,255,0.03); padding: 16px; border-radius: 16px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.05); }
+.spot-info-sidebar label { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); display: block; }
+.spot-info-sidebar span { color: white; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.spot-details-right h2 { font-size: 3rem; color: white; }
+.menu-sections-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; margin-top: 24px; }
+.menu-item { display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px dotted rgba(255,255,255,0.1); }
+.item-price { color: var(--income); font-weight: 700; }
+.pro-tip { background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(168,85,247,0.1)); padding: 24px; border-radius: 24px; margin-top: 24px; }

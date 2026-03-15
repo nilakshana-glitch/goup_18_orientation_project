@@ -1,0 +1,40 @@
+/* Specific styles for Campus Navigator */
+.navigator-header { margin-bottom: 40px; text-align: center; }
+.navigator-header h1 {
+    font-size: 3.5rem; font-weight: 800; margin-bottom: 10px;
+    background: linear-gradient(to bottom, #ffffff 40%, var(--primary-light) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.navigator-header .subtitle { font-size: 1.2rem; color: var(--text-muted); }
+.nav-controls { display: flex; gap: 20px; margin-bottom: 40px; align-items: center; }
+.search-bar-container { flex: 1; display: flex; align-items: center; gap: 12px; padding: 12px 24px; border-radius: 20px; }
+.search-bar-container input { background: transparent; border: none; padding: 0; width: 100%; color: white; }
+.search-bar-container input:focus { outline: none; }
+#open-floor-map { margin: 0; padding: 12px 32px; font-size: 1.1rem; border-radius: 20px; white-space: nowrap; cursor: pointer; }
+
+.category-tabs { display: flex; gap: 12px; margin-bottom: 32px; overflow-x: auto; padding-bottom: 10px; }
+.cat-tab { padding: 10px 24px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: var(--text-muted); font-weight: 600; cursor: pointer; transition: var(--transition-main); white-space: nowrap; }
+.cat-tab.active { background: var(--primary); color: white; border-color: var(--primary-light); }
+
+.places-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+.place-card { border-radius: 20px; overflow: hidden; cursor: pointer; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); transition: var(--transition-main); }
+.place-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.06); border-color: var(--primary-light); }
+.place-img { width: 100%; height: 180px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; }
+.place-info { padding: 20px; }
+.place-info h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; color: white; }
+.category-tag { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--primary-light); font-weight: 600; }
+
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); }
+.modal-content { margin: 5% auto; padding: 40px; width: 80%; max-width: 900px; border-radius: 32px; position: relative; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); }
+.close-modal { position: absolute; right: 25px; top: 20px; color: var(--text-muted); font-size: 35px; cursor: pointer; }
+
+.info-page { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.info-img-large { width: 100%; height: 300px; background: rgba(255,255,255,0.05); border-radius: 20px; display: flex; align-items: center; justify-content: center; }
+.info-map-location { width: 100%; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 20px; border: 1px dashed rgba(255,255,255,0.2); text-align: center; }
+.info-content h2 { font-size: 2.5rem; color: white; margin-bottom: 10px; }
+.info-category { color: var(--primary-light); font-weight: 700; text-transform: uppercase; margin-bottom: 24px; display: block; }
+.info-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; }
+.detail-item { background: rgba(255,255,255,0.04); padding: 16px; border-radius: 16px; display: flex; flex-direction: column; }
+.detail-item label { font-size: 0.8rem; color: var(--text-muted); }
+.detail-item span { color: white; font-weight: 600; }
+.pro-tip { background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(168,85,247,0.1)); border: 1px solid rgba(99,102,241,0.2); padding: 20px; border-radius: 20px; }
