@@ -90,95 +90,119 @@ function init() {
 
 // Overview Hub Logic
 function updateOverviewHub() {
-    // 1. Financial Overview
+    // 1. Financial Overview (for dashboard if elements exist)
     const income = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
     const expenses = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
     const balance = income - expenses;
     
     const hubBalanceEl = document.getElementById('current-balance-hub');
-    if (hubBalanceEl) {
-        hubBalanceEl.innerText = `LKR ${balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
-    }
+    if (hubBalanceEl) hubBalanceEl.innerText = `LKR ${balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
 
-    const hubRecentList = document.getElementById('hub-recent-list');
-    if (hubRecentList) {
-        hubRecentList.innerHTML = '';
-        const recent = transactions.slice(-2).reverse();
-        if (recent.length === 0) {
-            hubRecentList.innerHTML = '<li class="empty-mini">No recent transactions</li>';
-        } else {
-            recent.forEach(t => {
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    <span>${t.desc}</span>
-                    <strong style="color: ${t.type === 'income' ? 'var(--income)' : 'var(--expense)'}">
-                        ${t.type === 'income' ? '+' : '-'} ${t.amount.toLocaleString()}
-                    </strong>
-                `;
-                hubRecentList.appendChild(li);
-            });
-        }
-    }
-
-    // 2. Budget Planner
-    const budgetCount = Object.keys(budgets).length;
-    const hubBudgetCount = document.getElementById('hub-budget-count');
-    if (hubBudgetCount) hubBudgetCount.innerText = budgetCount;
-    
-    const hubBudgetProgress = document.getElementById('hub-budget-progress');
-    const hubBudgetStatus = document.getElementById('hub-budget-status');
-    
-    if (budgetCount > 0) {
-        const totalBudget = Object.values(budgets).reduce((a, b) => a + b, 0);
-        const totalSpent = transactions
-            .filter(t => t.type === 'expense' && budgets[t.category])
-            .reduce((a, b) => a + b, 0);
-        const percent = Math.min((totalSpent / totalBudget) * 100, 100);
-        if (hubBudgetProgress) hubBudgetProgress.style.width = `${percent}%`;
-        if (hubBudgetStatus) hubBudgetStatus.innerText = `${percent.toFixed(0)}% of total budget utilized`;
-    } else {
-        if (hubBudgetProgress) hubBudgetProgress.style.width = '0%';
-        if (hubBudgetStatus) hubBudgetStatus.innerText = 'No budgets defined yet.';
-    }
-
-    // 3. Spending Insights
-    const catTotals = {};
-    transactions.filter(t => t.type === 'expense').forEach(t => catTotals[t.category] = (catTotals[t.category] || 0) + t.amount);
-    let topCat = '-', topAmt = 0;
-    for (let c in catTotals) { if (catTotals[c] > topAmt) { topCat = c; topAmt = catTotals[c]; } }
-    
-    const hubTopCatEl = document.getElementById('hub-top-category');
-    if (hubTopCatEl) hubTopCatEl.innerText = topCat;
-    const hubTopAmtEl = document.getElementById('hub-top-amount');
-    if (hubTopAmtEl) hubTopAmtEl.innerText = `LKR ${topAmt.toLocaleString()} spent this month`;
-
-    // 4. Academic Hub
-    const pending = assignments.filter(a => !a.completed).sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-    const nextAssignmentEl = document.getElementById('hub-next-assignment');
-    const assignmentDaysEl = document.getElementById('hub-assignment-days');
-    
-    if (pending.length > 0) {
-        const next = pending[0];
-        if (nextAssignmentEl) nextAssignmentEl.innerText = next.title;
-        const diff = new Date(next.dueDate) - new Date();
-        const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-        if (assignmentDaysEl) {
-            assignmentDaysEl.innerText = days < 0 ? 'Overdue!' : days === 0 ? 'Due today' : `Due in ${days} days`;
-            assignmentDaysEl.style.color = days <= 1 ? 'var(--expense)' : 'var(--text-muted)';
-        }
-    } else {
-        if (nextAssignmentEl) nextAssignmentEl.innerText = 'No assignments';
-        if (assignmentDaysEl) {
-            assignmentDaysEl.innerText = 'All caught up!';
-            assignmentDaysEl.style.color = 'var(--text-muted)';
-        }
-    }
-
-    // 5. GPA Tracker
+    // 2. GPA Overview
     const hubGpaEl = document.getElementById('hub-current-gpa');
     if (hubGpaEl) hubGpaEl.innerText = courses.length > 0 ? calculateGPAValue() : '-';
-    const hubCourseCountEl = document.getElementById('hub-course-count');
-    if (hubCourseCountEl) hubCourseCountEl.innerText = `${courses.length} courses tracked`;
+
+    // 3. Upcoming Reminders (Homepage)
+    updateUpcomingReminders();
+    updateUpcomingEventReminders();
+}
+
+function updateUpcomingReminders() {
+    const container = document.getElementById('upcoming-assignments-reminder');
+    if (!container) return;
+
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const threeDaysFromNow = new Date(today);
+    threeDaysFromNow.setDate(today.getDate() + 3);
+
+    const upcoming = assignments.filter(a => {
+        if (a.completed) return false;
+        const dueDate = new Date(a.dueDate);
+        return dueDate >= today && dueDate <= threeDaysFromNow;
+    }).sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+    if (upcoming.length === 0) {
+        container.innerHTML = '';
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="reminder-section">
+            <h3 class="reminder-section-title"><i data-lucide="alert-circle"></i> Assignments Due Soon</h3>
+            <div class="reminder-list">
+                ${upcoming.map((a, index) => {
+                    const dueDate = new Date(a.dueDate);
+                    const diffTime = dueDate - today;
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    const dueText = diffDays === 0 ? 'Due Today' : diffDays === 1 ? 'Due Tomorrow' : `Due in ${diffDays} days`;
+                    
+                    return `
+                        <div class="reminder-card glass" style="animation-delay: ${index * 0.1}s">
+                            <div class="reminder-info">
+                                <div class="reminder-icon-box"><i data-lucide="book-check"></i></div>
+                                <div class="reminder-text">
+                                    <strong>${a.title}</strong>
+                                    <span>Deadline: ${dueDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                                </div>
+                            </div>
+                            <div class="due-tag">${dueText}</div>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+    `;
+    lucide.createIcons();
+}
+
+function updateUpcomingEventReminders() {
+    const container = document.getElementById('upcoming-events-reminder');
+    if (!container) return;
+
+    const allEvents = JSON.parse(localStorage.getItem('uniEventsList') || '[]');
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const threeDaysFromNow = new Date(today);
+    threeDaysFromNow.setDate(today.getDate() + 3);
+
+    const upcoming = allEvents.filter(e => {
+        const eventDate = new Date(e.date);
+        return eventDate >= today && eventDate <= threeDaysFromNow;
+    }).sort((a, b) => new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`));
+
+    if (upcoming.length === 0) {
+        container.innerHTML = '';
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="reminder-section">
+            <h3 class="reminder-section-title"><i data-lucide="calendar"></i> Upcoming Campus Events</h3>
+            <div class="reminder-list">
+                ${upcoming.map((e, index) => {
+                    const eventDate = new Date(e.date);
+                    const diffTime = eventDate - today;
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    const dueText = diffDays === 0 ? 'Today' : diffDays === 1 ? 'Tomorrow' : `In ${diffDays} days`;
+                    
+                    return `
+                        <div class="reminder-card glass event-theme" style="animation-delay: ${index * 0.1 + 0.2}s">
+                            <div class="reminder-info">
+                                <div class="reminder-icon-box"><i data-lucide="map-pin"></i></div>
+                                <div class="reminder-text">
+                                    <strong>${e.title}</strong>
+                                    <span>${e.venue} • ${e.time}</span>
+                                </div>
+                            </div>
+                            <div class="due-tag">${dueText}</div>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+    `;
+    lucide.createIcons();
 }
 
 function calculateGPAValue() {

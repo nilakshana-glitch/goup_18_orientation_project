@@ -745,6 +745,132 @@ th:nth-child(5), td:nth-child(5) { text-align: right; } /* Amount alignment */
     color: white;
 }
 
+/* --- Upcoming Reminders Premium UI --- */
+.reminders-overview-container {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.reminder-section {
+    width: 100%;
+}
+
+.reminder-section-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.reminder-section-title i {
+    width: 18px;
+    color: var(--primary-light);
+}
+
+.reminder-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.reminder-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 32px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: var(--transition-main);
+    position: relative;
+    overflow: hidden;
+}
+
+.reminder-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--expense);
+    box-shadow: 0 0 15px var(--expense);
+}
+
+.reminder-card:hover {
+    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.reminder-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.reminder-icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.1);
+    font-size: 1.2rem;
+}
+
+.reminder-text strong {
+    display: block;
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.reminder-text span {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.due-tag {
+    padding: 8px 20px;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    font-family: 'Outfit';
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Event Specific Overrides */
+.reminder-card.event-theme::before { 
+    background: var(--primary); 
+    box-shadow: 0 0 15px var(--primary);
+}
+.reminder-card.event-theme .reminder-icon-box {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary-light);
+    border-color: rgba(99, 102, 241, 0.1);
+}
+.reminder-card.event-theme .due-tag {
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--primary-light);
+    border-color: rgba(99, 102, 241, 0.2);
+}
+
 /* --- GPA Calculator --- */
 .gpa-container { 
     display: grid; 
