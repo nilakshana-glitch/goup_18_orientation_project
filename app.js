@@ -4,18 +4,9 @@ let budgets = JSON.parse(localStorage.getItem('budgets')) || {};
 let courses = JSON.parse(localStorage.getItem('courses')) || [];
 let assignments = JSON.parse(localStorage.getItem('assignments')) || [];
 
-// DOM Elements
-const views = document.querySelectorAll('.view');
-const navBtns = document.querySelectorAll('.nav-btn');
-const viewTitle = document.getElementById('view-title');
-const viewTagline = document.getElementById('view-tagline');
-const logoutBtn = document.getElementById('logout-btn');
-
-const transactionHistory = document.querySelector('#full-transaction-history tbody');
-const recentTransactionsTable = document.querySelector('#recent-transactions-table tbody');
-const budgetProgressList = document.getElementById('budget-progress-list');
-const assignmentForm = document.getElementById('assignment-form');
-const assignmentCardsContainer = document.getElementById('assignment-cards');
+// DOM Element References (initialized in init)
+let views, navBtns, viewTitle, viewTagline, logoutBtn;
+let transactionHistory, recentTransactionsTable, budgetProgressList, assignmentForm, assignmentCardsContainer;
 
 // Charts
 let expenseChart;
@@ -48,7 +39,21 @@ function setupAuth() {
 
 // Initialize App
 function init() {
+    // Initialize DOM References
+    views = document.querySelectorAll('.view');
+    navBtns = document.querySelectorAll('.nav-btn');
+    viewTitle = document.getElementById('view-title');
+    viewTagline = document.getElementById('view-tagline');
+    logoutBtn = document.getElementById('logout-btn');
+
+    transactionHistory = document.querySelector('#full-transaction-history tbody');
+    recentTransactionsTable = document.querySelector('#recent-transactions-table tbody');
+    budgetProgressList = document.getElementById('budget-progress-list');
+    assignmentForm = document.getElementById('assignment-form');
+    assignmentCardsContainer = document.getElementById('assignment-cards');
+
     if (!ensureAuthenticated()) return;
+    
     updateSummary();
     renderTransactions();
     renderRecentTransactions();
@@ -192,6 +197,7 @@ function setupLiquidEffect() {
 
 // Navigation Logic
 function setupNavigation() {
+    if (!navBtns) return;
     navBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const viewId = btn.getAttribute('data-view');
@@ -203,14 +209,18 @@ function setupNavigation() {
 
 function showView(viewId) {
     // Update Sidebar
-    navBtns.forEach(b => {
-        b.classList.toggle('active', b.getAttribute('data-view') === viewId);
-    });
+    if (navBtns) {
+        navBtns.forEach(b => {
+            b.classList.toggle('active', b.getAttribute('data-view') === viewId);
+        });
+    }
 
     // Update Views
-    views.forEach(v => {
-        v.classList.toggle('active', v.id === `view-${viewId}`);
-    });
+    if (views) {
+        views.forEach(v => {
+            v.classList.toggle('active', v.id === `view-${viewId}`);
+        });
+    }
 
     // Update Header
     const titles = {
@@ -874,4 +884,4 @@ function saveCourses() {
     updateOverviewHub();
 }
 
-init();
+document.addEventListener('DOMContentLoaded', init);
