@@ -218,11 +218,10 @@ body.pro-theme::before {
 }
 
 .welcome-section h1 {
-    font-size: 3.8rem;
+    font-size: 3.9rem;
     font-weight: 800;
     margin-bottom: 10px;
     margin-top: 20px;
-    letter-spacing: -2.5px;
     line-height: 1.1;
     background: linear-gradient(to bottom, #ffffff 40%, var(--primary-light) 100%);
     -webkit-background-clip: text;
