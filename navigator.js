@@ -7,7 +7,7 @@ const places = [
         image: "images/vk samaranayake auditorium.jpg",
         description: "The main auditorium of the university, used for major events and guest lectures. When you get up to the 4th floor from the main staircase, the auditorium is right next to you on your right hand side.",
         location: "4th Floor, South Wing",
-        capacity: "500+",
+        capacity: "423",
         plugPoints: "Limited (near walls)",
         ac: "Yes",
         proTip: "Bags, water bottles or food items are not allowed inside.",
