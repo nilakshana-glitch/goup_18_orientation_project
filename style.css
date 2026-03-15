@@ -175,13 +175,13 @@ body.pro-theme::before {
 .content-area {
     flex: 1;
     margin-left: var(--sidebar-width);
-    padding: 60px 80px;
+    padding: 30px 60px;
 }
 
 .content-header {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .header-right {
@@ -194,15 +194,15 @@ body.pro-theme::before {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 10px 20px;
+    padding: 8px 16px;
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .avatar {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     background: linear-gradient(135deg, var(--primary), var(--accent-blue));
     border-radius: 50%;
     display: flex;
@@ -213,16 +213,17 @@ body.pro-theme::before {
 
 /* --- Overview Hub Components --- */
 .welcome-section {
-    margin-bottom: 80px;
+    margin-bottom: 50px;
     text-align: center;
 }
 
 .welcome-section h1 {
-    font-size: 4.8rem;
+    font-size: 3.8rem;
     font-weight: 800;
-    margin-bottom: 20px;
-    letter-spacing: -4px;
-    line-height: 1;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    letter-spacing: -2.5px;
+    line-height: 1.1;
     background: linear-gradient(to bottom, #ffffff 40%, var(--primary-light) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -230,16 +231,19 @@ body.pro-theme::before {
 }
 
 .welcome-section .subtitle {
-    font-size: 1.6rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.3rem;
     color: var(--text-muted);
-    font-weight: 400;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
 }
 
 .quick-actions-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 32px;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
 }
 
 .quick-card {
@@ -248,24 +252,24 @@ body.pro-theme::before {
     align-items: center;
     justify-content: center;
     text-align: center;
-    gap: 20px;
-    padding: 40px 30px;
+    gap: 18px;
+    padding: 30px 25px;
     border-radius: var(--radius-lg);
     transition: var(--transition-main);
-    min-height: 300px;
+    min-height: 250px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .quick-card.clickable:hover {
-    transform: translateY(-12px) scale(1.02);
+    transform: translateY(-10px) scale(1.02);
     background: rgba(255, 255, 255, 0.06);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
 }
 
 .quick-card-icon {
-    font-size: 4rem;
-    width: 110px; height: 110px; display: flex; align-items: center; justify-content: center; border-radius: 35px;
+    font-size: 3.5rem;
+    width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; border-radius: 28px;
     margin-bottom: 5px;
     background: rgba(255, 255, 255, 0.04);
     box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.05);
@@ -274,28 +278,28 @@ body.pro-theme::before {
 
 /* Card Specific Personality */
 .quick-card:nth-child(1) { border-bottom: 4px solid var(--warning); }
-.quick-card:nth-child(1):hover { border-color: var(--warning); box-shadow: 0 20px 50px rgba(245, 158, 11, 0.2); }
+.quick-card:nth-child(1):hover { border-color: var(--warning); box-shadow: 0 20px 45px rgba(245, 158, 11, 0.18); }
 .quick-card:nth-child(1) .quick-card-icon { background: radial-gradient(circle at center, rgba(245, 158, 11, 0.2), transparent 75%); }
 
 .quick-card:nth-child(2) { border-bottom: 4px solid var(--primary); }
-.quick-card:nth-child(2):hover { border-color: var(--primary); box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2); }
+.quick-card:nth-child(2):hover { border-color: var(--primary); box-shadow: 0 20px 45px rgba(99, 102, 241, 0.18); }
 .quick-card:nth-child(2) .quick-card-icon { background: radial-gradient(circle at center, rgba(99, 102, 241, 0.2), transparent 75%); }
 
 .quick-card:nth-child(3) { border-bottom: 4px solid var(--accent-blue); }
-.quick-card:nth-child(3):hover { border-color: var(--accent-blue); box-shadow: 0 20px 50px rgba(14, 165, 233, 0.2); }
+.quick-card:nth-child(3):hover { border-color: var(--accent-blue); box-shadow: 0 20px 45px rgba(14, 165, 233, 0.18); }
 .quick-card:nth-child(3) .quick-card-icon { background: radial-gradient(circle at center, rgba(14, 165, 233, 0.2), transparent 75%); }
 
-.quick-card-info h3 { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; color: white; }
-.quick-card-info p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.5; }
+.quick-card-info h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; color: white; }
+.quick-card-info p { font-size: 1.05rem; color: var(--text-muted); line-height: 1.4; }
 
 /* --- VLE Button --- */
-.vle-action-container { display: flex; justify-content: center; margin-bottom: 100px; }
+.vle-action-container { display: flex; justify-content: center; margin-bottom: 120px; }
 .btn-vle {
-    display: inline-flex; align-items: center; gap: 16px; padding: 22px 56px; border-radius: 24px;
-    color: white; text-decoration: none; font-weight: 700; font-size: 1.3rem; transition: var(--transition-main);
+    display: inline-flex; align-items: center; gap: 12px; padding: 16px 40px; border-radius: 20px;
+    color: white; text-decoration: none; font-weight: 700; font-size: 1.1rem; transition: var(--transition-main);
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     border: 1px solid var(--primary-light);
-    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
 }
 .btn-vle i { color: white; }
 .btn-vle:hover {
