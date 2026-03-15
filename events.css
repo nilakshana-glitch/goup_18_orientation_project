@@ -226,6 +226,35 @@
     background: var(--bg-dark);
 }
 
+/* Textarea Styling */
+textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 18px 22px;
+    border-radius: 18px;
+    color: white;
+    font-size: 1.1rem;
+    transition: var(--transition-main);
+    resize: vertical;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.action-row {
+    display: flex;
+    gap: 16px;
+}
+
+#exportAllBtn {
+    white-space: nowrap;
+}
+
 @media (max-width: 1200px) {
     .events-layout-grid {
         grid-template-columns: 1fr;
