@@ -1,0 +1,171 @@
+/* Bill Splitter Specific Styles */
+
+.splitter-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.splitter-header h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    background: linear-gradient(to bottom, #ffffff 40%, var(--primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.splitter-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 32px;
+}
+
+.friend-input-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.friend-input-group input {
+    flex: 1;
+}
+
+.friends-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.friend-tag {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    padding: 8px 16px;
+    border-radius: 99px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-weight: 600;
+}
+
+.remove-friend {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: var(--transition-main);
+}
+
+.remove-friend:hover {
+    opacity: 1;
+    color: var(--expense);
+}
+
+/* Split With Section */
+.split-with-section {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.split-with-section label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.participants-checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 16px;
+}
+
+.participant-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.participant-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.participant-checkbox label {
+    margin-bottom: 0;
+    cursor: pointer;
+    color: white;
+}
+
+.full-width {
+    width: 100%;
+}
+
+/* Balances Display */
+.balances-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.balance-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 16px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.balance-text {
+    font-weight: 500;
+}
+
+.balance-text strong {
+    color: var(--primary-light);
+}
+
+.balance-amount {
+    font-weight: 800;
+    color: var(--income);
+}
+
+.balance-amount.negative {
+    color: var(--expense);
+}
+
+/* Mini List History */
+.mini-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.split-history-item {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.split-history-item:last-child {
+    border-bottom: none;
+}
+
+.split-history-item h4 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.split-history-item p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+@media (max-width: 1000px) {
+    .splitter-grid {
+        grid-template-columns: 1fr;
+    }
+}

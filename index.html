@@ -35,7 +35,7 @@
                 </button>
                 <button class="nav-btn" data-view="assignment">
                     <i data-lucide="book-check"></i>
-                    <span>Assignment</span>
+                    <span>Assignments</span>
                 </button>
                 <button class="nav-btn" data-view="timer">
                     <i data-lucide="timer"></i>
@@ -48,6 +48,10 @@
                 <button class="nav-btn" onclick="window.location.href='navigator.html'">
                     <i data-lucide="map-pin"></i>
                     <span>Navigator</span>
+                </button>
+                <button class="nav-btn" onclick="window.location.href='splitter.html'">
+                    <i data-lucide="users"></i>
+                    <span>Budget Splitter</span>
                 </button>
                 <button class="nav-btn" id="logout-btn" type="button">
                     <i data-lucide="log-out"></i>
@@ -93,11 +97,11 @@
                             <p>Start a Pomodoro timer</p>
                         </div>
                     </div>
-                    <div class="quick-card glass">
+                    <div class="quick-card glass clickable" onclick="window.location.href='navigator.html'">
                         <div class="quick-card-icon">🧭</div>
                         <div class="quick-card-info">
                             <h3>Lost on Campus?</h3>
-                            <p>Open the campus navigator (Coming Soon)</p>
+                            <p>Open the campus navigator</p>
                         </div>
                     </div>
                 </div>
