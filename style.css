@@ -293,9 +293,9 @@ body.pro-theme::before {
 .quick-card:nth-child(2):hover { border-color: var(--primary); box-shadow: 0 20px 45px rgba(99, 102, 241, 0.18); }
 .quick-card:nth-child(2) .quick-card-icon { background: radial-gradient(circle at center, rgba(99, 102, 241, 0.2), transparent 75%); }
 
-.quick-card:nth-child(3) { border-bottom: 4px solid var(--accent-blue); }
-.quick-card:nth-child(3):hover { border-color: var(--accent-blue); box-shadow: 0 20px 45px rgba(14, 165, 233, 0.18); }
-.quick-card:nth-child(3) .quick-card-icon { background: radial-gradient(circle at center, rgba(14, 165, 233, 0.2), transparent 75%); }
+.quick-card:nth-child(3) { border-bottom: 4px solid var(--accent-purple); }
+.quick-card:nth-child(3):hover { border-color: var(--accent-purple); box-shadow: 0 20px 45px rgba(168, 85, 247, 0.18); }
+.quick-card:nth-child(3) .quick-card-icon { background: radial-gradient(circle at center, rgba(168, 85, 247, 0.2), transparent 75%); }
 
 .quick-card-info h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; color: white; }
 .quick-card-info p { font-size: 1.05rem; color: var(--text-muted); line-height: 1.4; }

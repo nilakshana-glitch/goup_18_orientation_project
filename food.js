@@ -2,63 +2,77 @@
 const foodSpots = [
     {
         id: 1,
-        name: "Main Canteen",
+        name: "UCSC Canteen (Bhawana)",
         category: "canteen",
         icon: "🍱",
-        location: "Ground Floor, East Wing",
-        hours: "7:00 AM - 4:00 PM",
-        capacity: "200 seats",
-        description: "The primary dining hub for students, offering a wide variety of traditional Sri Lankan meals and quick snacks. It's the most convenient spot for those in the East Wing.",
-        proTip: "Try the 'Fish Patties' around 10:30 AM when they are fresh out of the kitchen!",
+        location: "Ground Floor, UCSC building",
+        hours: "7.00 AM - 8.00 PM",
+        capacity: "60+ seats",
+        description: "The primary dining hub for UCSC students, offering a wide variety of traditional Sri Lankan meals and quick snacks. It's the most convenient spot for those in the UCSC.",
+        proTip: "Make sure to clean your plate and the table after eating, as the canteen staff appreciate the help in keeping the place tidy.",
         menu: {
             "Breakfast": [
-                { name: "Rice & Curry", price: "LKR 120" },
-                { name: "String Hoppers", price: "LKR 80" },
-                { name: "Bread with Dhal", price: "LKR 60" }
+                { name: "Rice & Curry", price: "LKR 150" },
+                { name: "String Hoppers", price: "LKR 10" },
+                { name: "milk rice", price: "LKR 50" },
+                { name: "noodles", price: "LKR 130" }
             ],
             "Lunch": [
                 { name: "Chicken Rice", price: "LKR 250" },
-                { name: "Egg Rice", price: "LKR 200" },
-                { name: "Vegetable Rice", price: "LKR 150" }
+                { name: "fish Rice", price: "LKR 150" },
+                { name: "Egg Rice", price: "LKR 160" },
+                { name: "Vegetable Rice", price: "LKR 120" }
             ],
-            "Snacks": [
-                { name: "Patties", price: "LKR 40" },
-                { name: "Cutlets", price: "LKR 40" },
+            "snacks": [
+                { name: "egg rolls", price: "LKR 80" },
+                { name: "veg roll", price: "LKR 60" },
+                { name: "parata", price: "LKR 40" },
                 { name: "Wade", price: "LKR 30" }
+            ],
+            "drinks": [
+                { name: "plain tea", price: "LKR 20" },
+                { name: "milk tea", price: "LKR 70" },
+                { name: "nescafe", price: "LKR 100" },
+                { name: "sunquick", price: "LKR 150" }
             ]
         }
     },
     {
         id: 2,
-        name: "Upper Food Court",
+        name: "UOC Food Court and Convenience Store",
         category: "food court",
         icon: "🍕",
-        location: "3rd Floor, Student Center",
-        hours: "9:00 AM - 7:00 PM",
-        capacity: "150 seats",
-        description: "A modern food court with multiple vendors serving everything from fried rice to burgers. Great for group lunches and evening hangouts.",
-        proTip: "The Kottu here is legendary, but the queue gets long after 5:00 PM.",
+        location: "next to the Planetarium",
+        hours: "7:00 AM - 7:00 PM",
+        capacity: "100 seats",
+        description: "A modern food court with multiple vendors serving everything from rice and curry to western cuisine. Great for group lunches and evening hangouts.",
+        proTip: "The prices here are bit higher than the canteens, but the variety and quality make it worth it.",
         menu: {
             "Main Meals": [
                 { name: "Fried Rice", price: "LKR 350" },
                 { name: "Kottu Roti", price: "LKR 400" },
                 { name: "Noodles", price: "LKR 300" }
             ],
-            "Western": [
-                { name: "Burger", price: "LKR 450" },
+            "snacks": [
+                { name: "eclairs", price: "LKR 450" },
                 { name: "Sandwich", price: "LKR 250" },
-                { name: "French Fries", price: "LKR 200" }
+                { name: "chocolate cake", price: "LKR 200" }
+            ],
+            "drinks": [
+                { name: "milkshake", price: "LKR 350" },
+                { name: "mixfruit juice", price: "LKR 200" },
+                { name: "falooda", price: "LKR 200" }
             ]
         }
     },
     {
         id: 3,
-        name: "Vitamin Juice Bar",
+        name: "UCSC Juice Bar",
         category: "juice bar",
         icon: "🥤",
-        location: "Next to Main Library",
+        location: "Next to New Arts Theatre",
         hours: "8:00 AM - 5:00 PM",
-        capacity: "Outdoor seating (20)",
+        capacity: "Outdoor seating (10)",
         description: "The best spot for refreshing fresh fruit juices and milkshakes. Located conveniently for a quick break from the library.",
         proTip: "Ask for 'no sugar' if you want it extra healthy; their fruits are always sweet!",
         menu: {
@@ -77,16 +91,39 @@ const foodSpots = [
     },
     {
         id: 4,
-        name: "Staff Cafe",
-        category: "cafe",
-        icon: "☕",
+        name: "SSC canteen (Balagiriya)",
+        category: "canteen",
+        icon: "🥗",
         location: "Administration Building",
-        hours: "8:00 AM - 3:00 PM",
+        hours: "7:00 AM - 7.30 PM",
         capacity: "40 seats",
         description: "A quiet and cozy cafe primarily used by staff but open to students. Ideal for a peaceful cup of coffee or a quick cake slice.",
         proTip: "The Chocolate Cake here is often considered the best on campus.",
         menu: {
-            "Coffee": [
+            "Lunch": [
+                { name: "Fish Rice & Curry", price: "LKR 180" },
+                { name: "Chicken Rice & Curry", price: "LKR 220" },
+                { name: "Egg Rice & Curry", price: "LKR 160" }
+            ],
+            "Short Eats": [
+                { name: "Fish Bun", price: "LKR 60" },
+                { name: "Rolls", price: "LKR 50" },
+                { name: "Samosa", price: "LKR 40" }
+            ]
+        }
+    },
+    {
+        id: 5,
+        name: "SSC Juice bar",
+        category: "juice bar",
+        icon: "🥤",
+        location: "UCSC Building, Ground Floor",
+        hours: "7:00 AM - 5:00 PM",
+        capacity: "80 seats",
+        description: "Specializes in affordable Rice & Curry and a variety of short eats. A favorite among computer science students.",
+        proTip: "The Fish Bun is a student favorite for a quick breakfast on the go.",
+        menu: {
+           "Coffee": [
                 { name: "Black Coffee", price: "LKR 80" },
                 { name: "Milk Coffee", price: "LKR 100" },
                 { name: "Tea", price: "LKR 50" }
@@ -99,25 +136,75 @@ const foodSpots = [
         }
     },
     {
-        id: 5,
-        name: "UCSC Canteen",
+        id: 6,
+        name: "Art Canteen",
         category: "canteen",
-        icon: "🍚",
-        location: "UCSC Building, Ground Floor",
-        hours: "7:00 AM - 5:00 PM",
-        capacity: "80 seats",
-        description: "Specializes in affordable Rice & Curry and a variety of short eats. A favorite among computer science students.",
-        proTip: "The Fish Bun is a student favorite for a quick breakfast on the go.",
+        icon: "🍜",
+        location: "Faculty of Arts",
+        hours: "7:00 AM - 4:00 PM",
+        capacity: "150 seats",
+        description: "A large and vibrant canteen serving the Faculty of Arts. Known for its affordable and diverse menu, it's a popular meeting spot for students across the university.",
+        proTip: "The lunch rush can be intense, so try to arrive a bit earlier or later than peak noon.",
         menu: {
+            "Meals": [
+                { name: "Rice & Curry (Veg)", price: "LKR 120" },
+                { name: "Rice & Curry (Fish)", price: "LKR 150" },
+                { name: "Rice & Curry (Chicken)", price: "LKR 200" }
+            ],
+            "Snacks": [
+                { name: "Pol Roti", price: "LKR 30" },
+                { name: "Lunu Miris", price: "LKR 10" },
+                { name: "Ulundu Wade", price: "LKR 40" }
+            ]
+        }
+    },
+    {
+        id: 7,
+        name: "Management Canteen",
+        category: "canteen",
+        icon: "🍛",
+        location: "Faculty of Management & Finance",
+        hours: "7:30 AM - 5:00 PM",
+        capacity: "100 seats",
+        description: "A well-organized canteen offering a range of meals and snacks. It provides a comfortable environment for students to dine and discuss their projects.",
+        proTip: "Their sandwiches are freshly made every morning and are perfect for a quick bite between classes.",
+        menu: {
+            "Breakfast": [
+                { name: "Milk Rice", price: "LKR 60" },
+                { name: "Bread & Dahl", price: "LKR 80" }
+            ],
             "Lunch": [
-                { name: "Fish Rice & Curry", price: "LKR 180" },
-                { name: "Chicken Rice & Curry", price: "LKR 220" },
-                { name: "Egg Rice & Curry", price: "LKR 160" }
+                { name: "Mixed Rice", price: "LKR 250" },
+                { name: "Fried Rice", price: "LKR 300" }
+            ],
+            "Beverages": [
+                { name: "Fruit Juice", price: "LKR 120" },
+                { name: "Coffee", price: "LKR 90" }
+            ]
+        }
+    },
+    {
+        id: 8,
+        name: "Law Canteen",
+        category: "canteen",
+        icon: "🍲",
+        location: "Faculty of Law",
+        hours: "8:00 AM - 4:00 PM",
+        capacity: "80 seats",
+        description: "A quieter canteen located within the Faculty of Law. It offers a selection of quality meals in a more reserved setting.",
+        proTip: "The quiet atmosphere makes it a good place to catch up on some reading while you eat.",
+        menu: {
+            "Main Meals": [
+                { name: "Rice & Curry", price: "LKR 140" },
+                { name: "Noodles", price: "LKR 150" }
             ],
             "Short Eats": [
-                { name: "Fish Bun", price: "LKR 60" },
-                { name: "Rolls", price: "LKR 50" },
-                { name: "Samosa", price: "LKR 40" }
+                { name: "Patties", price: "LKR 50" },
+                { name: "Cutlets", price: "LKR 60" }
+            ],
+            "Drinks": [
+                { name: "Tea", price: "LKR 40" },
+                { name: "Ginger Beer", price: "LKR 100" }
             ]
         }
     }
