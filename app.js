@@ -462,37 +462,54 @@ function renderAssignments() {
     assignmentCardsContainer.innerHTML = '';
 
     if (!assignments.length) {
-        assignmentCardsContainer.innerHTML = '<p class="assignment-empty">No assignments yet. Add your first assignment from the form.</p>';
+        assignmentCardsContainer.innerHTML = '<p class="empty-message">No assignments yet. Add your first assignment from the form.</p>';
         return;
     }
 
     const sortedAssignments = [...assignments].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
 
-    sortedAssignments.forEach(a => {
-        const remainingText = formatRemainingTime(a.dueDate, a.completed);
+    sortedAssignments.forEach((a, index) => {
         const isOverdue = !a.completed && getAssignmentDeadline(a.dueDate) < new Date();
-
-        const card = document.createElement('article');
-        card.className = 'assignment-item-card glass';
+        const statusClass = `status-${a.priority.toLowerCase()}`;
+        
+        const card = document.createElement('div');
+        card.className = 'assignment-item-card glass animate-on-load';
+        card.style.animationDelay = `${index * 0.1}s`;
+        
         card.innerHTML = `
-            <div class="assignment-card-head">
-                <h4>${a.title}</h4>
-                <span class="badge">${a.priority}</span>
+            <div class="assignment-card-header">
+                <span class="assignment-status ${statusClass}">${a.priority} Priority</span>
+                <button class="btn-delete-assignment" onclick="deleteAssignment('${a.id}')">
+                    <i data-lucide="trash-2"></i>
+                </button>
             </div>
-            <div class="assignment-card-meta">
-                <p><strong>Due:</strong> ${new Date(a.dueDate).toLocaleDateString()}</p>
-                <p><strong>Remaining:</strong> <span class="assignment-remaining ${isOverdue ? 'overdue' : ''}" data-due-date="${a.dueDate}" data-completed="${a.completed}">${remainingText}</span></p>
-                <p><strong>Status:</strong> ${a.completed ? '<span class="assignment-status done">Done</span>' : isOverdue ? '<span class="assignment-status overdue">Overdue</span>' : '<span class="assignment-status pending">Pending</span>'}</p>
+            <h4>${a.title}</h4>
+            <div class="assignment-card-details">
+                <div class="assignment-detail-row">
+                    <i data-lucide="calendar"></i>
+                    <span>Due: ${new Date(a.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                </div>
+                <div class="assignment-detail-row">
+                    <i data-lucide="clock"></i>
+                    <span class="${isOverdue ? 'overdue' : ''}">${formatRemainingTime(a.dueDate, a.completed)}</span>
+                </div>
+                <div class="assignment-detail-row">
+                    <i data-lucide="check-circle"></i>
+                    <span>Status: ${a.completed ? 'Completed' : isOverdue ? 'Overdue' : 'Pending'}</span>
+                </div>
             </div>
             <div class="assignment-actions">
-                <button class="btn-text assignment-toggle-btn ${a.completed ? 'assignment-toggle-btn--pending' : 'assignment-toggle-btn--done'}" onclick="toggleAssignmentStatus('${a.id}')">${a.completed ? 'Mark Pending' : 'Mark Done'}</button>
-                <button class="btn-text assignment-delete-btn" onclick="deleteAssignment('${a.id}')">Delete</button>
+                <button class="btn btn-secondary" onclick="toggleAssignmentStatus('${a.id}')" style="flex: 1; padding: 12px; font-size: 0.9rem;">
+                    <i data-lucide="${a.completed ? 'rotate-ccw' : 'check'}"></i>
+                    ${a.completed ? 'Mark Pending' : 'Mark Done'}
+                </button>
             </div>
         `;
         assignmentCardsContainer.appendChild(card);
     });
-
-    updateAssignmentCountdowns();
+    
+    lucide.createIcons();
+    updateOverviewHub();
 }
 
 function getAssignmentDeadline(dueDate) {
