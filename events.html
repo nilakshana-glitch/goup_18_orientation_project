@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniMate Events | Student Event Reminder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="events.css">
+</head>
+<body class="events-theme">
+    <div class="page-shell">
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-icon">🎓</div>
+                <div>
+                    <p class="brand-title">UniMate Event Assistant</p>
+                    <p class="brand-sub">Smart reminders for your campus life</p>
+                </div>
+            </div>
+            <div class="top-right">
+                <button id="darkModeToggle" class="pill-btn">🌙 Dark Mode</button>
+                <a class="pill-btn secondary" href="index.html">← Back Home</a>
+            </div>
+        </header>
+
+        <main class="layout-grid">
+            <section class="panel glass-card">
+                <div class="panel-head">
+                    <div>
+                        <h1>Plan Your Upcoming Events</h1>
+                        <p>Quickly add events, get reminders, and stay on top of deadlines.</p>
+                    </div>
+                    <div class="status-pill" id="nextCountdown">Next Event in: --</div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Event Name <span>*</span></label>
+                        <input id="eventName" type="text" placeholder="Workshop on UX" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Date <span>*</span></label>
+                        <input id="eventDate" type="date" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Time <span>*</span></label>
+                        <input id="eventTime" type="time" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Venue / Location <span>*</span></label>
+                        <input id="eventVenue" type="text" placeholder="Library Hall" required>
+                    </div>
+                    <div class="input-group full-span">
+                        <label>Description</label>
+                        <textarea id="eventDescription" rows="2" placeholder="Optional notes..."></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label>Category <span>*</span></label>
+                        <select id="eventCategory">
+                            <option value="Academic">Academic</option>
+                            <option value="Cultural">Cultural</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Club">Club</option>
+                        </select>
+                    </div>
+                    <div class="input-group full-span action-row">
+                        <button id="addEventBtn" class="btn btn-primary">Add Event</button>
+                        <button id="saveEditBtn" class="btn btn-secondary hidden">Save Edit</button>
+                        <button id="clearBtn" class="btn btn-light">Clear</button>
+                    </div>
+                </div>
+                <div class="hint-row">
+                    <div class="hint">✅ Added events are saved in your browser and persist after refresh.</div>
+                </div>
+            </section>
+
+            <section class="panel panel-right glass-card">
+                <div class="row-head">
+                    <div>
+                        <h2>Event Hub</h2>
+                        <p>Search, filter, and track your semester activities.</p>
+                    </div>
+                    <div class="tag-group">
+                        <span id="notificationStatus" class="tag tag-muted">Notifications: Pending</span>
+                        <span id="reminderIndicator" class="tag tag-green">Upcoming</span>
+                    </div>
+                </div>
+
+                <div class="search-line">
+                    <div class="search-box">
+                        <label>Search events</label>
+                        <input id="searchInput" type="search" placeholder="Search by title, venue, or category">
+                    </div>
+                    <div class="dropdown-box">
+                        <label>Category</label>
+                        <select id="categoryFilter">
+                            <option value="all">All Categories</option>
+                            <option value="Academic">Academic</option>
+                            <option value="Cultural">Cultural</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Club">Club</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mini-layout">
+                    <div class="calendar glass-card" id="miniCalendar"></div>
+
+                    <div class="upcoming-panel glass-card small">
+                        <div class="panel-title">Today’s Events</div>
+                        <div id="todayList" class="today-list">No events for today.</div>
+                    </div>
+                </div>
+
+                <div class="event-list-head">
+                    <h3>Event Timeline</h3>
+                    <div class="btn-inline">
+                        <button id="exportAllBtn" class="btn btn-light">Export All .ics</button>
+                        <button id="clearAllBtn" class="btn btn-danger">Delete All</button>
+                    </div>
+                </div>
+
+                <div id="eventCards" class="event-cards"></div>
+            </section>
+        </main>
+    </div>
+
+    <audio id="alarmSound" preload="auto" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"></audio>
+    <div id="confetti"></div>
+
+    <script src="events.js"></script>
+</body>
+</html>
