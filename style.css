@@ -173,6 +173,51 @@ body.pro-theme {
     line-height: 1.5;
 }
 
+/* --- VLE Button Styles --- */
+.vle-action-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.btn-vle {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    border-radius: 16px;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: var(--transition-main);
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-vle i {
+    width: 24px;
+    height: 24px;
+    color: var(--primary-light);
+}
+
+.btn-vle .small-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.5;
+}
+
+.btn-vle:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    border-color: var(--primary-light);
+}
+
+.btn-vle:active {
+    transform: translateY(-1px);
+}
+
 /* --- Sidebar --- */
 .sidebar {
     width: var(--sidebar-width);
