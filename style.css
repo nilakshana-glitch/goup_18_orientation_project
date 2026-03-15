@@ -390,6 +390,30 @@ input:focus { outline: none; border-color: var(--primary-light); background: rgb
     gap: 20px;
 }
 
+.table-container { width: 100%; overflow-x: auto; margin-top: 28px; }
+table { width: 100%; border-collapse: separate; border-spacing: 0 16px; }
+
+th {
+    text-align: left;
+    padding: 12px 24px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+tbody tr { background: rgba(255, 255, 255, 0.02); transition: var(--transition-main); }
+tbody tr:hover { background: rgba(255, 255, 255, 0.05); transform: translateX(8px); }
+td { padding: 24px; }
+td:first-child { border-radius: 20px 0 0 20px; }
+td:last-child { border-radius: 0 20px 20px 0; }
+
+/* Specific Column Widths */
+th:nth-child(2), td:nth-child(2) { width: 35%; } /* Transaction Name */
+th:nth-child(1), td:nth-child(1) { width: 15%; } /* Date */
+th:nth-child(5), td:nth-child(5) { text-align: right; } /* Amount alignment */
+
 .search-box {
     display: flex;
     align-items: center;
@@ -428,7 +452,20 @@ input:focus { outline: none; border-color: var(--primary-light); background: rgb
 .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border: none; color: white; padding: 18px; border-radius: 16px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: var(--transition-main); }
 .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4); }
 
-.btn-secondary { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white; padding: 18px; border-radius: 16px; font-weight: 700; cursor: pointer; transition: var(--transition-main); }
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
 .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
 
 .trend-analysis {
