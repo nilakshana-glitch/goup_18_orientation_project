@@ -619,6 +619,42 @@ th:nth-child(5), td:nth-child(5) { text-align: right; } /* Amount alignment */
     letter-spacing: 0.5px;
 }
 
+.btn-icon {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-main);
+}
+
+.btn-icon:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.glass-select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 14px;
+    outline: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.glass-select option {
+    background: var(--bg-dark);
+    color: white;
+}
+
 /* GPA */
 .gpa-container { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
 .gpa-display { font-size: 6rem; font-weight: 800; color: var(--primary-light); font-family: 'Outfit'; }

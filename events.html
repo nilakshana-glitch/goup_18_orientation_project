@@ -1,128 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UniMate Events | Student Event Reminder</title>
+    <title>UniMate | Events & Reminders</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="events.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="events-theme">
-    <div class="page-shell">
-        <header class="topbar">
-            <div class="brand">
-                <div class="brand-icon">🎓</div>
-                <div>
-                    <p class="brand-title">UniMate Event Assistant</p>
-                    <p class="brand-sub">Smart reminders for your campus life</p>
+
+<body class="pro-theme">
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar glass">
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <div class="logo-icon"><i data-lucide="calendar"></i></div>
+                    <h2>Uni<span>Mate</span></h2>
                 </div>
             </div>
-            <div class="top-right">
-                <button id="darkModeToggle" class="pill-btn">🌙 Dark Mode</button>
-                <a class="pill-btn secondary" href="index.html">← Back Home</a>
+            <nav class="sidebar-nav">
+                <button class="nav-btn" onclick="window.location.href='index.html#overview'">
+                    <i data-lucide="layout-grid"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" onclick="window.location.href='index.html#budget'">
+                    <i data-lucide="target"></i>
+                    <span>Budgeting</span>
+                </button>
+                <button class="nav-btn" onclick="window.location.href='index.html#assignment'">
+                    <i data-lucide="book-check"></i>
+                    <span>Assignments</span>
+                </button>
+                <button class="nav-btn" onclick="window.location.href='index.html#timer'">
+                    <i data-lucide="timer"></i>
+                    <span>Timer</span>
+                </button>
+                <button class="nav-btn" onclick="window.location.href='index.html#gpa'">
+                    <i data-lucide="calculator"></i>
+                    <span>GPA Calculator</span>
+                </button>
+                <button class="nav-btn" onclick="window.location.href='navigator.html'">
+                    <i data-lucide="map-pin"></i>
+                    <span>Navigator</span>
+                </button>
+                <button class="nav-btn" onclick="window.location.href='splitter.html'">
+                    <i data-lucide="users"></i>
+                    <span>Budget Splitter</span>
+                </button>
+                <button class="nav-btn" onclick="window.location.href='food.html'">
+                    <i data-lucide="utensils"></i>
+                    <span>Food Finder</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <!-- Header Section -->
+            <header class="content-header">
+                <div class="header-right">
+                    <div class="user-profile glass">
+                        <div class="avatar"><i data-lucide="user"></i></div>
+                        <span>Student Pro</span>
+                    </div>
+                    <button id="logout-btn" class="glass" type="button">
+                        <i data-lucide="log-out"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="navigator-header animate-on-load">
+                <h1>Events & Reminders</h1>
+                <p class="subtitle">Stay updated with campus activities and never miss a deadline.</p>
             </div>
-        </header>
 
-        <main class="layout-grid">
-            <section class="panel glass-card">
-                <div class="panel-head">
-                    <div>
-                        <h1>Plan Your Upcoming Events</h1>
-                        <p>Quickly add events, get reminders, and stay on top of deadlines.</p>
+            <div class="events-layout-grid">
+                <!-- Left Column: Add Event -->
+                <section class="glass-section glass animate-on-load" style="--delay: 0.1s">
+                    <div class="section-header">
+                        <h3><i data-lucide="calendar-plus"></i> Plan New Event</h3>
+                        <div id="nextCountdown" class="status-pill glass">Next Event in: --</div>
                     </div>
-                    <div class="status-pill" id="nextCountdown">Next Event in: --</div>
-                </div>
 
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Event Name <span>*</span></label>
-                        <input id="eventName" type="text" placeholder="Workshop on UX" required>
+                    <div class="event-form-container">
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label><i data-lucide="type"></i> Event Name</label>
+                                <input id="eventName" type="text" placeholder="Workshop on UX" required>
+                            </div>
+                            <div class="input-group">
+                                <label><i data-lucide="calendar"></i> Date</label>
+                                <input id="eventDate" type="date" required>
+                            </div>
+                            <div class="input-group">
+                                <label><i data-lucide="clock"></i> Time</label>
+                                <input id="eventTime" type="time" required>
+                            </div>
+                            <div class="input-group">
+                                <label><i data-lucide="map-pin"></i> Venue</label>
+                                <input id="eventVenue" type="text" placeholder="Library Hall" required>
+                            </div>
+                            <div class="input-group full-span">
+                                <label><i data-lucide="align-left"></i> Description</label>
+                                <textarea id="eventDescription" rows="2" placeholder="Optional notes..."></textarea>
+                            </div>
+                            <div class="input-group">
+                                <label><i data-lucide="tag"></i> Category</label>
+                                <select id="eventCategory">
+                                    <option value="Academic">Academic</option>
+                                    <option value="Cultural">Cultural</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Club">Club</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="action-row" style="margin-top: 24px;">
+                            <button id="addEventBtn" class="btn btn-primary">Add Event</button>
+                            <button id="saveEditBtn" class="btn btn-primary hidden">Save Changes</button>
+                            <button id="clearBtn" class="btn btn-secondary">Clear</button>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label>Date <span>*</span></label>
-                        <input id="eventDate" type="date" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Time <span>*</span></label>
-                        <input id="eventTime" type="time" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Venue / Location <span>*</span></label>
-                        <input id="eventVenue" type="text" placeholder="Library Hall" required>
-                    </div>
-                    <div class="input-group full-span">
-                        <label>Description</label>
-                        <textarea id="eventDescription" rows="2" placeholder="Optional notes..."></textarea>
-                    </div>
-                    <div class="input-group">
-                        <label>Category <span>*</span></label>
-                        <select id="eventCategory">
-                            <option value="Academic">Academic</option>
-                            <option value="Cultural">Cultural</option>
-                            <option value="Sports">Sports</option>
-                            <option value="Club">Club</option>
-                        </select>
-                    </div>
-                    <div class="input-group full-span action-row">
-                        <button id="addEventBtn" class="btn btn-primary">Add Event</button>
-                        <button id="saveEditBtn" class="btn btn-secondary hidden">Save Edit</button>
-                        <button id="clearBtn" class="btn btn-light">Clear</button>
-                    </div>
-                </div>
-                <div class="hint-row">
-                    <div class="hint">✅ Added events are saved in your browser and persist after refresh.</div>
-                </div>
-            </section>
+                </section>
 
-            <section class="panel panel-right glass-card">
-                <div class="row-head">
-                    <div>
-                        <h2>Event Hub</h2>
-                        <p>Search, filter, and track your semester activities.</p>
-                    </div>
-                    <div class="tag-group">
-                        <span id="notificationStatus" class="tag tag-muted">Notifications: Pending</span>
-                        <span id="reminderIndicator" class="tag tag-green">Upcoming</span>
-                    </div>
-                </div>
+                <!-- Right Column: Calendar & Today -->
+                <div class="side-panels-column">
+                    <section class="glass-section glass animate-on-load" style="--delay: 0.2s">
+                        <h3><i data-lucide="calendar-days"></i> Calendar</h3>
+                        <div class="calendar-container" id="miniCalendar"></div>
+                    </section>
 
-                <div class="search-line">
-                    <div class="search-box">
-                        <label>Search events</label>
-                        <input id="searchInput" type="search" placeholder="Search by title, venue, or category">
-                    </div>
-                    <div class="dropdown-box">
-                        <label>Category</label>
-                        <select id="categoryFilter">
+                    <section class="glass-section glass animate-on-load" style="--delay: 0.3s">
+                        <h3><i data-lucide="zap"></i> Today's Schedule</h3>
+                        <div id="todayList" class="today-list">
+                            <div class="hint">No events scheduled for today.</div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Full Width: Event Timeline -->
+            <section class="glass-section glass animate-on-load" style="--delay: 0.4s; margin-top: 32px;">
+                <div class="section-header">
+                    <h3><i data-lucide="list-todo"></i> Event Timeline</h3>
+                    <div class="header-actions">
+                        <div class="search-box glass" style="min-width: 250px;">
+                            <i data-lucide="search"></i>
+                            <input id="searchInput" type="text" placeholder="Search events...">
+                        </div>
+                        <select id="categoryFilter" class="glass-select">
                             <option value="all">All Categories</option>
                             <option value="Academic">Academic</option>
                             <option value="Cultural">Cultural</option>
                             <option value="Sports">Sports</option>
                             <option value="Club">Club</option>
                         </select>
+                        <button id="exportAllBtn" class="btn btn-secondary">
+                            <i data-lucide="download"></i>
+                            <span>Export All</span>
+                        </button>
+                        <button id="clearAllBtn" class="btn btn-secondary" style="color: #f87171;">
+                            <i data-lucide="trash-2"></i>
+                        </button>
                     </div>
                 </div>
 
-                <div class="mini-layout">
-                    <div class="calendar glass-card" id="miniCalendar"></div>
-
-                    <div class="upcoming-panel glass-card small">
-                        <div class="panel-title">Today’s Events</div>
-                        <div id="todayList" class="today-list">No events for today.</div>
-                    </div>
+                <div id="eventCards" class="event-cards-grid">
+                    <!-- Cards injected by JS -->
                 </div>
-
-                <div class="event-list-head">
-                    <h3>Event Timeline</h3>
-                    <div class="btn-inline">
-                        <button id="exportAllBtn" class="btn btn-light">Export All .ics</button>
-                        <button id="clearAllBtn" class="btn btn-danger">Delete All</button>
-                    </div>
-                </div>
-
-                <div id="eventCards" class="event-cards"></div>
             </section>
         </main>
     </div>
@@ -131,5 +182,7 @@
     <div id="confetti"></div>
 
     <script src="events.js"></script>
+    <script>lucide.createIcons();</script>
 </body>
+
 </html>
