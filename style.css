@@ -301,7 +301,7 @@ body.pro-theme::before {
 .quick-card-info p { font-size: 1.05rem; color: var(--text-muted); line-height: 1.4; }
 
 /* --- VLE Button --- */
-.vle-action-container { display: flex; justify-content: center; margin-bottom: 120px; }
+.vle-action-container { display: flex; justify-content: center; margin-bottom: 40px; }
 .btn-vle {
     display: inline-flex; align-items: center; gap: 12px; padding: 16px 40px; border-radius: 20px;
     color: white; text-decoration: none; font-weight: 700; font-size: 1.1rem; transition: var(--transition-main);
