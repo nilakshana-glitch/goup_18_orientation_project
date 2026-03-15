@@ -829,17 +829,17 @@ function renderCourses() {
         return;
     }
 
-    container.innerHTML = courses.map(course => `
-        <div class="course-item">
+    container.innerHTML = courses.map((course, index) => `
+        <div class="course-item animate-on-load" style="--delay: ${index * 0.05}s">
             <div class="course-info">
-                <div class="course-item-name">${course.name}</div>
-                <div class="course-item-details">
-                    <span>Grade: ${getGradeLetter(course.grade)} (${course.grade})</span>
-                    <span>Credits: ${course.credits}</span>
+                <strong>${course.name}</strong>
+                <div class="course-meta">
+                    <span>${course.credits} Credits</span>
                 </div>
             </div>
-            <button class="course-item-delete" onclick="deleteCourse(${course.id})">
-                <i data-lucide="trash-2"></i> Delete
+            <div class="grade-badge">${getGradeLetter(course.grade)}</div>
+            <button class="btn-icon" style="color: #f87171;" onclick="deleteCourse('${course.id}')">
+                <i data-lucide="trash-2"></i>
             </button>
         </div>
     `).join('');
